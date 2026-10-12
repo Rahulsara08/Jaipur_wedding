@@ -9,7 +9,7 @@
   <link rel="icon" href="data:,">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600&family=Tiro+Devanagari+Hindi&family=Yatra+One&family=Amita:wght@700&family=Cinzel:wght@500;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600&family=Tiro+Devanagari+Hindi&family=Yatra+One&family=Amita:wght@700&family=Cinzel:wght@500;600;700&family=Teko:wght@600;700&family=Rozha+One&display=swap" rel="stylesheet">
   <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Cormorant+Garamond:ital,wght@0,500;0,600;1,500&display=swap" rel="stylesheet">
   <script>/* the opening plays first; if its script never loads, the page shows after 8 s anyway */
     document.documentElement.classList.add('op-on','op-lock');
@@ -20,17 +20,17 @@
   <link rel="stylesheet" href="css/road.css?v=be8a1e37">
   <link rel="stylesheet" href="css/gate.css?v=ae9852b4">
   <link rel="stylesheet" href="css/events.css?v=37748057">
-  <link rel="stylesheet" href="css/patrika.css?v=e87ec174">
+  <link rel="stylesheet" href="css/patrika.css?v=33a5f1c7">
   <link rel="stylesheet" href="css/family.css?v=c8791fc9">
-  <link rel="stylesheet" href="css/couple.css?v=adeae2cb">
-  <link rel="stylesheet" href="css/rsvp.css?v=0eb670e0">
+  <link rel="stylesheet" href="css/couple.css?v=c9944bb6">
+  <link rel="stylesheet" href="css/rsvp.css?v=f904d223">
   <link rel="stylesheet" href="css/end.css?v=55e9b6df">
   <link rel="stylesheet" href="css/garden.css?v=ef1a6162">
   <link rel="stylesheet" href="css/opening.css?v=d3322faa">
   <!-- phones only: their own layout values (desktop untouched) -->
-  <link rel="stylesheet" href="css/mobile.css?v=31c18cd4" media="(max-width: 767px)">
+  <link rel="stylesheet" href="css/mobile.css?v=7c8c5cd2" media="(max-width: 767px)">
   <script src="js/config.js?v=9e107404"></script>
-  <script src="js/mobile.js?v=942334e5"></script>
+  <script src="js/mobile.js?v=a05adf49"></script>
 </head>
 <body>
 <div class="op" id="op" aria-label="Wedding invitation, tap to open">
@@ -81,6 +81,7 @@
       <p>are getting married</p>
       <p class="hero-guest">Dear <span class="guest-name">Family &amp; Friends</span>, you are invited</p>
     </div>
+    <div class="hero-cue m-only" id="heroCue" aria-hidden="true"><span>Scroll down</span><i></i><i></i></div>
     <img class="hawa" id="hawa" alt="Hawa Mahal, Jaipur" src="assets/img/hero-hawa-mahal.webp">
     <img class="tl" id="tl" alt="" src="assets/img/hero-tree-left.webp">
     <img class="tr" id="tr" alt="" src="assets/img/hero-tree-right.webp">
@@ -216,7 +217,7 @@
           <div class="rq-in">
             <p class="rq-pre">Our love story</p>
             <p class="rq-script">began in</p>
-            <img class="rq-logo" src="assets/img/jaipur-flat.webp" alt="Jaipur" width="998" height="599" decoding="async">
+            <p class="rq-logo rq-place flat"><span class="en">Jaipur</span><span class="hi" lang="hi">जयपुर</span></p>
             <svg class="rq-orn" viewBox="-60 -10 120 20" aria-hidden="true"><path d="M-56 0H-16M16 0H56" stroke="#e8c97a" stroke-width="1"/><path d="M0 8Q-5 1 0-8Q5 1 0 8Z" fill="#f2c96e"/><path d="M0 8Q-11 5-13-3Q-5-2 0 8Z" fill="#e8a24a"/><path d="M0 8Q11 5 13-3Q5-2 0 8Z" fill="#e8a24a"/></svg>
             <p class="rq-sub">where two hearts first met</p>
           </div>
@@ -237,7 +238,7 @@
           <div class="rq-in">
             <p class="rq-pre">and our love story</p>
             <p class="rq-script">still lives on in</p>
-            <img class="rq-logo" src="assets/img/jaipur-3d.webp" alt="Jaipur" width="1242" height="368" loading="lazy" decoding="async">
+            <p class="rq-logo rq-place raised"><span class="en">Udaipur</span><span class="hi" lang="hi">उदयपुर</span></p>
             <svg class="rq-orn" viewBox="-60 -10 120 20" aria-hidden="true"><path d="M-56 0H-16M16 0H56" stroke="#e8c97a" stroke-width="1"/><path d="M0 8Q-5 1 0-8Q5 1 0 8Z" fill="#f2c96e"/><path d="M0 8Q-11 5-13-3Q-5-2 0 8Z" fill="#e8a24a"/><path d="M0 8Q11 5 13-3Q5-2 0 8Z" fill="#e8a24a"/></svg>
             <p class="rq-sub">forever, together</p>
           </div>
@@ -252,7 +253,6 @@
   <i class="p6-rod" aria-hidden="true"></i>
   <i class="p6-g l" aria-hidden="true"></i><i class="p6-g r" aria-hidden="true"></i><i class="p6-lotus" aria-hidden="true"></i>
   <i class="p6-pil l" aria-hidden="true"></i><i class="p6-pil r" aria-hidden="true"></i>
-  <div class="p6-invite rv"><p class="p6-iv-hi" lang="hi">सादर आमंत्रण</p><p class="p6-iv-s">With joyful hearts</p><p class="p6-iv-t">we invite you and your family to bless Shubh &amp; Ayushi as they begin their forever</p><svg viewBox="-60 -10 120 20" aria-hidden="true"><path d="M-56 0H-16M16 0H56" stroke="#e8c97a" stroke-width="1"/><path d="M0 8Q-5 1 0-8Q5 1 0 8Z" fill="#f2c96e"/><path d="M0 8Q-11 5-13-3Q-5-2 0 8Z" fill="#e8a24a"/><path d="M0 8Q11 5 13-3Q5-2 0 8Z" fill="#e8a24a"/></svg></div>
   <div class="p6-arch">
     <img class="p6-pea l m-only" src="assets/img/peacock.webp" alt="" width="1100" height="756" loading="lazy" decoding="async" aria-hidden="true"><img class="p6-pea r m-only" src="assets/img/peacock.webp" alt="" width="1100" height="756" loading="lazy" decoding="async" aria-hidden="true">
     <i class="p6-in-t" aria-hidden="true"></i><i class="p6-in-b" aria-hidden="true"></i>
@@ -266,7 +266,9 @@
       <p class="p6-thanks" id="p6thanks" role="status" aria-live="polite"></p>
     </div>
     <i class="p6-mahal rv" aria-hidden="true"></i>
+    <i class="p6-plinth" aria-hidden="true"></i>
     <i class="p6-fr-b" aria-hidden="true"></i>
+    <i class="p6-medal" aria-hidden="true"></i>
   </div>
   <p class="place-name on-dark p6-tag"><span class="pn-en rv">Hawa Mahal</span></p>
   <!-- gold and red ornaments stacked in depth at both bottom corners, over the frame's corners and onto the next page -->
@@ -368,19 +370,19 @@
   </div>
 </section>
 
-<script src="js/hero.js?v=6d5acd24"></script>
+<script src="js/hero.js?v=0b405bee"></script>
 <script src="js/opening.js?v=56cc90c4"></script>
 <script src="js/gate.js?v=635c9850"></script>
 <script src="js/road.js?v=0751f98a"></script>
-<script src="js/events.js?v=a0b9ba64"></script>
+<script src="js/events.js?v=5b66ad3a"></script>
 <script src="js/patrika-couple.js?v=379a7c95"></script>
 <script src="js/reveal.js?v=09889ddd"></script>
 <script src="js/patrika-sky.js?v=e96231b4"></script>
 <script src="js/cloud-band.js?v=4f5314bc"></script>
 <script src="js/rsvp.js?v=f7a66b6b"></script>
 <script src="js/invitation.js?v=53d43dc0"></script>
-<script src="js/wishes.js?v=0dee0122"></script>
-<script src="js/runway.js?v=8cff3459"></script>
+<script src="js/wishes.js?v=72a0ab33"></script>
+<script src="js/runway.js?v=7862229b"></script>
 <script src="js/lotus.js?v=5f9cde5f"></script>
 <script src="js/closing.js?v=7e6d3b4a"></script>
 <script src="js/mountains.js?v=aea14082"></script>

@@ -114,3 +114,14 @@ html.rw-lock,html.rw-lock body{overflow:hidden}
 .q-end{align-items:flex-end;justify-content:flex-end;padding:0 clamp(16px,3vw,48px) clamp(26px,9vh,96px) 0}
 .q-end .rq-in{width:min(100%,420px)}
 .rq-lotus{bottom:0;height:min(92%,640px)}
+
+/* ---- the place names at both ends of the runway, written as text so they can be changed: the start in the flat
+   poster style (tall yellow capitals with a pink offset), the end in the raised gold style ---- */
+.rq-place{width:auto!important;display:flex;flex-direction:column;align-items:center;margin:.12em 0 0!important;line-height:.86;filter:drop-shadow(0 10px 16px rgba(20,0,6,.5))}
+.rq-place span{display:block;white-space:nowrap}
+.rq-place.flat .en{font:700 clamp(74px,10.5vw,150px)/.86 "Teko","Anton",Impact,sans-serif;letter-spacing:.015em;text-transform:uppercase;color:#ffc21c;text-shadow:.045em .05em 0 #e3236f}
+.rq-place.flat .hi{margin-top:.1em;font:600 clamp(30px,4vw,56px)/1 "Teko","Tiro Devanagari Hindi",sans-serif;color:#ffc21c;text-shadow:.04em .05em 0 #e3236f}
+.rq-place.raised .en{font:400 clamp(50px,5.4vw,88px)/1 "Rozha One",Georgia,serif;letter-spacing:.02em;text-transform:uppercase;color:#ffb52a;
+ text-shadow:0 1px 0 #ffd36a,1px 2px 0 #e8642a,2px 3px 0 #d03a32,3px 4px 0 #b8213a,4px 5px 0 #9c1636,5px 7px 10px rgba(20,0,6,.55)}
+.rq-place.raised .hi{margin-top:.12em;font:400 clamp(28px,3.6vw,52px)/1.1 "Rozha One","Tiro Devanagari Hindi",serif;color:#ffb52a;
+ text-shadow:1px 1px 0 #d03a32,2px 2px 0 #b8213a,3px 3px 0 #9c1636,3px 5px 8px rgba(20,0,6,.5)}

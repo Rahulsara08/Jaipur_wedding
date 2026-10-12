@@ -1,8 +1,8 @@
 (function(){
   var $=function(i){return document.getElementById(i)};
-  var track=$('track'),sky=$('sky'),hawa=$('hawa'),tl=$('tl'),tr=$('tr'),names=document.querySelector('.names');
+  var cue=$('heroCue'),track=$('track'),sky=$('sky'),hawa=$('hawa'),tl=$('tl'),tr=$('tr'),names=document.querySelector('.names');
   var reduce=matchMedia('(prefers-reduced-motion: reduce)').matches;
-  var cur=0,target=0,last=0,running=false,T=1,vh=innerHeight;
+  var cur=0,target=0,last=0,running=false,T=1,vh=innerHeight,nk=0.6,nmax=innerHeight;
   function cl(x){return Math.min(1,Math.max(0,x))}
   function es(t){return t*t*(3-2*t)}
   function setVars(){
@@ -24,6 +24,10 @@
     var H=hawa.offsetHeight||vh*1.5;
     T=Math.max(1,H-0.4*vh-3);                          // distance the building travels = scroll distance (1:1)
     track.style.height=(vh+T)+'px';
+    // the text must end up wholly behind the solid wall, below the domes and their gaps (~16% of the building's
+    // height), when the building stops; on short travels (phones) it moves faster than 0.6 to get there in time
+    var end=(vh*0.6-T)+0.16*H-names.offsetTop;
+    nk=Math.max(0.6,end/T);nmax=Math.max(vh,end);
   }
   function readTarget(){
     var s=scrollY-track.offsetTop;
@@ -38,8 +42,10 @@
     tl.style.transform='translate3d('+(-(1-e)*105).toFixed(2)+'%,0,0)';
     tr.style.transform='translate3d('+((1-e)*105).toFixed(2)+'%,0,0)';
     sky.style.transform='translate3d(0,'+(-(s/T)*12).toFixed(2)+'%,0)';
-    // text slides down with the scroll and disappears behind the building (no blur / fade)
-    names.style.transform='translate3d(0,'+Math.min(s*0.6,vh).toFixed(2)+'px,0)';
+    // text slides down with the scroll and disappears fully behind the building (no blur / fade)
+    names.style.transform='translate3d(0,'+Math.min(s*nk,nmax).toFixed(2)+'px,0)';
+    // the scroll cue sits just above the building's top and rides up with it, fading out over the first steps
+    if(cue){cue.style.transform='translate3d(-50%,'+(vh*0.6-s).toFixed(2)+'px,0)';cue.style.opacity=Math.max(0,1-s/140).toFixed(3)}
   }
   function loop(now){
     var dt=Math.min(0.05,(now-last)/1000||0.016);last=now;

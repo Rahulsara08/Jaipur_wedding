@@ -79,16 +79,27 @@
 .p6-mahal.rv.in{opacity:1;transform:none}
 @media (prefers-reduced-motion:reduce){.p6-mahal::after{animation:none}.p6-mahal.rv{opacity:1;transform:none;transition:none}}
 
-/* ---- tall portrait screens (phones, tablets): the space between the garlands and the arch holds an invitation
-   line instead of standing empty; it sits in the middle of that space, clear of the peacocks ---- */
-.p6-invite{display:none}
+/* ---- tall portrait screens (phones, tablets): the arch sits centred in its page, with even room above (under the
+   garlands, for the peacocks) and below (the Hawa Mahal name and the corner flowers) instead of a big gap on top ---- */
 @media (orientation:portrait) and (max-width:1100px){
- .p6-invite{position:relative;z-index:5;display:flex;flex-direction:column;align-items:center;gap:.15em;box-sizing:border-box;width:var(--aw);
-  margin:auto 0;padding:10px 4px calc(var(--aw)*.1 + 14px);text-align:center;pointer-events:none}
- .p6-invite p{margin:0}
- .p6-iv-hi{font:400 clamp(17px,4.6vw,30px)/1.2 "Amita","Tiro Devanagari Hindi",serif;letter-spacing:.06em;color:#f2c96e;text-shadow:0 2px 6px rgba(20,0,6,.7)}
- .p6-iv-s{font:400 clamp(30px,8.6vw,56px)/1.1 "Great Vibes",cursive;background:linear-gradient(180deg,#fff6d8,#f6d48a 50%,#d9a441);
-  -webkit-background-clip:text;background-clip:text;color:transparent;filter:drop-shadow(0 2px 3px rgba(20,0,6,.85))}
- .p6-iv-t{max-width:30em;font:italic 600 clamp(14px,3.8vw,21px)/1.35 "Cormorant Garamond",Georgia,serif;color:#f6e2c0;text-shadow:0 2px 6px rgba(20,0,6,.75)}
- .p6-invite svg{width:clamp(100px,30vw,170px);height:auto;margin-top:.35em}
+ .pg6{justify-content:center;min-height:max(100svh,calc(var(--aw)*1.6 + var(--rodh) + clamp(70px,14vw,170px) + clamp(96px,12.5vw,160px)));
+  padding-top:calc(var(--rodh) + clamp(70px,14vw,170px) + var(--aw)*.12)}
 }
+
+/* ---- the frame's foot: Hawa Mahal stands on a carved gold plinth (kalash and rose petals at its ends) instead of
+   dissolving into white fog; a warm sandstone glow rises behind it, and a lotus medallion sits on the bottom rod ---- */
+.p6-in-b::after{content:"";position:absolute;left:0;right:0;bottom:0;height:calc(var(--aw)*.5);pointer-events:none;
+ background:radial-gradient(80% 70% at 50% 100%,rgba(236,180,140,.3),rgba(244,210,178,.12) 60%,transparent 85%)}
+/* the picture's own sandy fog (its bottom fifth) fades out and goes behind the plinth, so the palace rises from the
+   back edge of the gold slab */
+.p6-mahal{width:80%;margin-bottom:calc(var(--aw)*-.012);
+ -webkit-mask-image:linear-gradient(180deg,#000 72%,rgba(0,0,0,.45) 78%,transparent 83%);mask-image:linear-gradient(180deg,#000 72%,rgba(0,0,0,.45) 78%,transparent 83%)}
+/* no glow filter: the mask would cut its halo off square at the picture's edges, leaving a pale box */
+.p6-mahal{filter:none}
+.p6-mahal::after{display:none}
+.p6-plinth{position:absolute;z-index:7;left:3.2%;right:3.2%;bottom:calc(var(--aw)*.0314 - 1px);aspect-ratio:2000/300;pointer-events:none;
+ background:url(../assets/img/patrika-platform.webp) center bottom/100% 100% no-repeat;filter:drop-shadow(0 -3px 6px rgba(120,50,20,.18))}
+.p6-medal{position:absolute;z-index:8;left:50%;bottom:calc(var(--aw)*.0157);width:clamp(46px,calc(var(--aw)*.17),150px);aspect-ratio:900/620;transform:translate(-50%,46%);pointer-events:none;
+ background:url(../assets/img/lotus-ornament.webp) center/contain no-repeat;filter:drop-shadow(0 4px 6px rgba(20,0,6,.55)) drop-shadow(0 0 10px rgba(255,200,90,.35))}
+.p6-fr-b{height:calc(var(--aw)*.036);filter:drop-shadow(0 5px 7px rgba(20,0,6,.5)) drop-shadow(0 0 8px rgba(255,200,90,.25))}
+.p6-tag{bottom:calc(clamp(96px,12.5vw,160px)/2 - 10px)}

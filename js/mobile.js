@@ -15,6 +15,6 @@ window.MOBILE=(function(){
   return {
     on:on,
     // first page: Hawa Mahal's width on a phone - about a third smaller than before, so more of the building shows
-    hawaW:function(W,H){return Math.max(W*1.4,H*.82)}
+    hawaW:function(W,H){return Math.max(W*1.6,H*.94)}
   };
 })();

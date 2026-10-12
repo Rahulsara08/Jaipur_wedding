@@ -65,7 +65,8 @@
 
   /* ---- form ---- */
   var q=new URLSearchParams(location.search),guest=clean(q.get('to')||q.get('guest'),40);
-  if(guest&&nameIn&&!nameIn.value)nameIn.value=guest;
+  try{if(guest)localStorage.setItem('wedding-guest',guest);else guest=clean(localStorage.getItem('wedding-guest'),40)}catch(e){}
+  if(guest&&nameIn){nameIn.value=guest;nameIn.defaultValue=guest}   // personal invitation: the name is already filled in
   wishIn.addEventListener('input',function(){wishIn.parentNode.classList.remove('err')});
   nameIn.addEventListener('input',function(){nameIn.parentNode.classList.remove('err')});
   function say(t,bad){msg.textContent=t;msg.classList.toggle('bad',!!bad)}

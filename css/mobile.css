@@ -63,11 +63,13 @@
 .ev-arr.prev{left:calc(var(--fw)*.005)}
 .ev-arr.next{right:calc(var(--fw)*.005)}
 
-/* ---- smooth scrolling: the paisley behind Family and Bride & Groom scrolls with its page instead of being pinned to
-   the screen (a pinned layer under a clipped page made the phone repaint the page on every frame, so the frames and
-   text trailed behind the finger and the background shook) ---- */
-.bg-fix{position:absolute;inset:0;width:auto;height:auto}
-.pg5,.pgc{clip-path:none}
+/* ---- smooth scrolling: the paisley behind Family and Bride & Groom stays still while the page moves over it. It is one
+   still layer behind the whole page that these two pages let show through (the old way, a pinned layer inside each
+   clipped page, made the phone repaint the page on every frame, so frames and text trailed behind the finger) ---- */
+.bg-fix{display:none}
+.pg5,.pgc{clip-path:none;background:transparent}
+body::before{content:"";position:fixed;z-index:-1;left:0;top:0;width:100%;height:100vh;height:100lvh;pointer-events:none;
+ background:#5c0f22 url(../assets/img/burgundy-paisley.webp) 0 0/min(760px,100vw) auto repeat}
 .pgc{overflow-x:hidden}
 @supports (overflow:clip){.pgc{overflow:visible;overflow-x:clip}}
 .rw-plane{will-change:transform}
@@ -83,3 +85,24 @@
 .p9-mtn{width:136%;margin-left:-18%}
 .m-g1{left:6%;width:44%}
 .m-g2{left:54%;width:46%}
+
+/* ---- page 1: the "scroll down" cue, centred just above the top of Hawa Mahal; it rides up with the building and
+   fades out as soon as the guest starts scrolling ---- */
+.hero-cue.m-only{display:flex;position:absolute;z-index:3;left:50%;top:0;margin-top:-78px;flex-direction:column;align-items:center;gap:2px;pointer-events:none;
+ color:#fff7dc;font:700 12px/1 "Cinzel",Georgia,serif;letter-spacing:.28em;text-transform:uppercase;text-shadow:0 1px 6px rgba(10,30,70,.8);will-change:transform,opacity}
+.hero-cue span{padding:7px 12px 6px 15px;border-radius:999px;background:rgba(20,50,110,.35);border:1px solid rgba(255,236,180,.7);-webkit-backdrop-filter:blur(2px);backdrop-filter:blur(2px)}
+.hero-cue i{display:block;width:14px;height:14px;margin-top:-4px;border-right:2.5px solid #ffe7a6;border-bottom:2.5px solid #ffe7a6;transform:rotate(45deg);
+ filter:drop-shadow(0 1px 3px rgba(10,30,70,.7));animation:herocue 1.6s ease-in-out infinite}
+.hero-cue i:first-of-type{margin-top:6px}
+.hero-cue i+i{animation-delay:.2s}
+@keyframes herocue{0%,100%{opacity:.35;translate:0 -3px}50%{opacity:1;translate:0 4px}}
+.op-on .hero-cue{visibility:hidden}
+@media (prefers-reduced-motion:reduce){.hero-cue i{animation:none}}
+
+/* ---- page 4: only a strip of sky under the cloud bank (was three inches of plain blue), the scene is only as tall
+   as the gate needs plus a little sky, and the Patrika Gate is larger ---- */
+.p4-gap{height:56px}
+.p4-stage{--pw:min(212vw,calc((100svh - var(--base) - 8svh)/.7477));height:calc(var(--gh) + var(--base) + 15svh)}
+
+.rq-place.flat .en{font-size:clamp(70px,24vw,108px)}
+.rq-place.raised .en{font-size:clamp(52px,17vw,84px)}

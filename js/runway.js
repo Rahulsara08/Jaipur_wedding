@@ -86,6 +86,7 @@
   [].forEach.call(document.querySelectorAll('#pgc .rq-logo'),function(im){if(!im.complete)im.addEventListener('load',measure,{once:true})});
   photos.forEach(function(ph){var im=ph.querySelector('img');if(!im.complete)im.addEventListener('load',function(){kick()},{once:true})});
   measure();
+  if(document.fonts&&document.fonts.ready)document.fonts.ready.then(measure);
 
   // ---- tap to view ----
   var lb=document.getElementById('rwLb'),lbImg=document.getElementById('rwLbImg'),root=document.documentElement,opener=null;
