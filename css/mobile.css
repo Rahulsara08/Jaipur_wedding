@@ -62,3 +62,24 @@
 .ev-arr{width:38px;margin-top:-19px}
 .ev-arr.prev{left:calc(var(--fw)*.005)}
 .ev-arr.next{right:calc(var(--fw)*.005)}
+
+/* ---- smooth scrolling: the paisley behind Family and Bride & Groom scrolls with its page instead of being pinned to
+   the screen (a pinned layer under a clipped page made the phone repaint the page on every frame, so the frames and
+   text trailed behind the finger and the background shook) ---- */
+.bg-fix{position:absolute;inset:0;width:auto;height:auto}
+.pg5,.pgc{clip-path:none}
+.pgc{overflow-x:hidden}
+@supports (overflow:clip){.pgc{overflow:visible;overflow-x:clip}}
+.rw-plane{will-change:transform}
+
+/* ---- events: the arrows sit inside the frame, in the mat's two bottom corners; no text in the events area ---- */
+.ev-track{padding-bottom:calc(var(--fw)*.31)!important}
+.ev-arr{width:34px;margin-top:0;top:auto;bottom:calc(var(--fw)*.205)}
+.ev-arr.prev{left:calc(var(--fw)*.14)}
+.ev-arr.next{right:calc(var(--fw)*.14)}
+.ev-hint,.ev-count{display:none}
+
+/* ---- Amer Fort: the mountains and the fort larger; the small range in front larger still, so it is fully seen ---- */
+.p9-mtn{width:136%;margin-left:-18%}
+.m-g1{left:6%;width:44%}
+.m-g2{left:54%;width:46%}

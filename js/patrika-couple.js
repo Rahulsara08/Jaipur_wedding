@@ -9,7 +9,8 @@
   function es(t){return t*t*(3-2*t)}
   function render(){
     ticking=false;
-    var vh=innerHeight,top=sec.getBoundingClientRect().top;
+    var vh=innerHeight,r0=sec.getBoundingClientRect(),top=r0.top;
+    if(r0.top>vh*2.5||r0.bottom<-vh*1.5)return;           // far off screen: nothing to move
     if(sec.style.height)sec.style.height='';
     var H=st.clientHeight,ch=couple.offsetHeight,gh=gate.offsetHeight,pb=parseFloat(getComputedStyle(gate).bottom)||0,plh=plat.offsetHeight;
     var gTop=H-pb-gh;                                        // gate top, from the top of the scene

@@ -131,3 +131,6 @@
  .wl-track{padding:8px 9% 14px}
 }
 @media (prefers-reduced-motion:reduce){.wc,.wc.new,.wl-nav,.wf-btn,.wf-btn:hover{animation:none;transition:none}}
+
+/* portrait screens: no full-screen minimum height, the gateway stands right on the next page's divider */
+@media (orientation:portrait) and (max-width:1100px){.pg7{min-height:0}}

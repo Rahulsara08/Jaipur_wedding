@@ -10,8 +10,10 @@
   function eio(t){return t<.5?2*t*t:1-Math.pow(-2*t+2,2)/2}
   function update(){
     ticking=false;var vh=innerHeight;
+    var feet=plants.map(function(p){return p.getBoundingClientRect().bottom/vh});   // all reads first, then the writes
+    if(feet.every(function(f){return f<-1||f>3}))return;   // the family page is far off screen
     plants.forEach(function(p,i){
-      var foot=p.getBoundingClientRect().bottom/vh;
+      var foot=feet[i];
       var k=Math.min(1,Math.max(0,(START-foot)/(START-END)));
       imgs[i].style.setProperty('--reveal',(START_REVEAL+(MAX_REVEAL-START_REVEAL)*eio(k)).toFixed(2));
       p.style.setProperty('--pl-s',(START_SCALE+(1-START_SCALE)*(1-Math.pow(1-k,2))).toFixed(4));

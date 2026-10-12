@@ -42,9 +42,9 @@
   var loc=gl.getAttribLocation(pr,'p');gl.enableVertexAttribArray(loc);gl.vertexAttribPointer(loc,2,gl.FLOAT,false,0,0);
   var uR=gl.getUniformLocation(pr,'R'),uT=gl.getUniformLocation(pr,'T');
   var reduce=matchMedia('(prefers-reduced-motion: reduce)').matches,on=false,raf=0,t0=performance.now()-40000;
-  function size(){var k=Math.min(1,(window.devicePixelRatio||1))*.6;var w=Math.max(2,Math.round(cv.clientWidth*k)),h=Math.max(2,Math.round(cv.clientHeight*k));
+  function size(){var k=Math.min(1,(window.devicePixelRatio||1))*(window.MOBILE&&MOBILE.on()?.4:.6);var w=Math.max(2,Math.round(cv.clientWidth*k)),h=Math.max(2,Math.round(cv.clientHeight*k));
     if(cv.width!==w||cv.height!==h){cv.width=w;cv.height=h;gl.viewport(0,0,w,h)}gl.uniform2f(uR,cv.width,cv.height)}
-  function draw(now){raf=0;size();gl.uniform1f(uT,(now-t0)/1000);gl.drawArrays(gl.TRIANGLE_STRIP,0,4);if(on&&!reduce)raf=requestAnimationFrame(draw)}
+  var lastD=0;function draw(now){raf=0;if(window.MOBILE&&MOBILE.on()&&now-lastD<30&&on){raf=requestAnimationFrame(draw);return}lastD=now;size();gl.uniform1f(uT,(now-t0)/1000);gl.drawArrays(gl.TRIANGLE_STRIP,0,4);if(on&&!reduce)raf=requestAnimationFrame(draw)}
   st.classList.add('real');
   if('IntersectionObserver' in window)new IntersectionObserver(function(es){on=es[0].isIntersecting;if(on&&!raf)raf=requestAnimationFrame(draw)}).observe(st);
   else on=true;

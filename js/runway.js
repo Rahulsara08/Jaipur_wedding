@@ -11,7 +11,7 @@
   var SWOOP=.42;         // tweak: how far the plane swoops towards each photo (share of the photo height)
   var steps=[].slice.call(track.querySelectorAll('.rw-step')),photos=steps.map(function(s){return s.querySelector('.rw-photo')});
   var notes=[].slice.call(track.querySelectorAll('.rw-note')),qStart=document.getElementById('rqStart'),qEnd=document.getElementById('rqEnd'),lotus=qEnd?[].slice.call(qEnd.querySelectorAll('.rq-lotus')):[];
-  var line=track.querySelector('.rw-line'),dist=0,way=[],stageH=0,lastP=-1,dir=1,active=-1,ticking=false,cur=-1;
+  var spans={q:[],n:[]},secTop=0,secH=0,lastK=-1,line=track.querySelector('.rw-line'),dist=0,way=[],stageH=0,lastP=-1,dir=1,active=-1,ticking=false,cur=-1;
 
   function measure(){
     stageH=stage.offsetHeight;
@@ -34,7 +34,10 @@
     way.push({x:x1-cap,y:0,s:-1});
     var a1=at(qEnd&&qEnd.querySelector('.rq-logo'),-1);if(a1)way.push(a1);
     line.style.left=x0+'px';line.style.width=(x1-x0)+'px';  // the gold line from the first photo to the last
-    lastP=-1;cur=-1;update();
+    function span(el){var r=el.getBoundingClientRect();return {el:el,l:r.left-tr.left,w:r.width}}
+    spans={q:[qStart,qEnd].filter(Boolean).map(span),n:notes.map(span)};
+    secTop=sec.getBoundingClientRect().top+scrollY;secH=sec.offsetHeight;
+    lastP=-1;cur=-1;lastK=-1;update();
   }
   // Catmull-Rom position and tangent angle along the waypoints, t in 0..1
   function flight(t){
@@ -45,12 +48,14 @@
     var dx=dv(p0.x,p1.x,p2.x,p3.x),dy=dv(p0.y,p1.y,p2.y,p3.y);
     return {x:c(p0.x,p1.x,p2.x,p3.x),y:c(p0.y,p1.y,p2.y,p3.y),a:Math.atan2(dy,dx)*180/Math.PI};
   }
-  function secOn(){var r=sec.getBoundingClientRect();return r.top<innerHeight*.6&&r.bottom>innerHeight*.4}
+  function secOn(){var t=secTop-scrollY;return t<innerHeight*.6&&t+secH>innerHeight*.4}
   function target(){var range=sec.offsetHeight-stageH;return range>0?Math.max(0,Math.min(1,(scrollY-sec.offsetTop)/range)):0}
   var lastT=0;
   function update(now){
+    secTop=sec.getBoundingClientRect().top+scrollY;           // one read at the start of the frame (pages above can change height)
     var t=target(),dt=Math.min(.05,((now||performance.now())-lastT)/1000||.016);lastT=now||performance.now();
-    cur=cur<0?t:cur+(t-cur)*(1-Math.exp(-dt*9));             // tweak: 9 = how quickly it catches up (higher = snappier)
+    if(cur===t&&lastP===t&&(secTop-scrollY>innerHeight*2||secTop+secH-scrollY<-innerHeight)){ticking=false;return}   // page far away and settled: nothing to redraw
+    cur=cur<0?t:cur+(t-cur)*(1-Math.exp(-dt*(window.MOBILE&&MOBILE.on()?12:9)));             // tweak: 9 = how quickly it catches up (higher = snappier)
     if(Math.abs(t-cur)<.0004)cur=t;
     var p=cur;
     track.style.transform='translate3d('+(-p*dist).toFixed(1)+'px,0,0)';
@@ -63,12 +68,15 @@
     var best=-1,bd=1e9;for(var i=0;i<way.length;i++){if(way[i].s<0)continue;var dd=Math.abs(way[i].x-f.x);if(dd<bd){bd=dd;best=way[i].s}}
     if(best!==active){if(active>=0)steps[active].classList.remove('on');active=best;if(active>=0)steps[active].classList.add('on')}
     // the quotes: each comes in as it is on screen; the closing quote's lotus grows over the last part of the runway
-    var vw=innerWidth;
-    [qStart,qEnd].forEach(function(q){if(!q)return;var r=q.getBoundingClientRect(),vis=r.right>vw*.12&&r.left<vw*.88&&secOn();
-      if(vis&&!q.classList.contains('in')){q.classList.add('in');setTimeout(measure,1300)}});   // re-aim the plane once the logo has settled
-    notes.forEach(function(n){if(n.classList.contains('in'))return;var r=n.getBoundingClientRect();if(r.right>vw*.1&&r.left<vw*.9&&secOn())n.classList.add('in')});
-    if(lotus.length&&qEnd){var r=qEnd.getBoundingClientRect(),k=Math.max(0,Math.min(1,(vw-r.left)/Math.max(1,r.width)));k=k*k*(3-2*k);
-      lotus.forEach(function(l){l.style.setProperty('--reveal',(6+104*k).toFixed(1));l.style.setProperty('--ls',(.92+.08*k).toFixed(3));l.classList.toggle('grown',k>=.999)})}
+    // (positions come from measure(): on screen = place on the track minus how far the track has moved)
+    var vw=innerWidth,shift=-p*dist,on=secOn();
+    spans.q.forEach(function(q){var L=q.l+shift;
+      if(on&&L+q.w>vw*.12&&L<vw*.88&&!q.el.classList.contains('in')){q.el.classList.add('in');setTimeout(measure,1300)}});   // re-aim the plane once the logo has settled
+    spans.n.forEach(function(n){if(n.el.classList.contains('in'))return;var L=n.l+shift;if(on&&L+n.w>vw*.1&&L<vw*.9)n.el.classList.add('in')});
+    var qe=spans.q[spans.q.length-1];
+    if(lotus.length&&qe&&qe.el===qEnd){var k=Math.max(0,Math.min(1,(vw-(qe.l+shift))/Math.max(1,qe.w)));k=k*k*(3-2*k);
+      if(Math.abs(k-lastK)>.004||(k>=.999)!==(lastK>=.999)){lastK=k;   // the masked plants repaint only when they really change
+        lotus.forEach(function(l){l.style.setProperty('--reveal',(6+104*k).toFixed(1));l.style.setProperty('--ls',(.92+.08*k).toFixed(3));l.classList.toggle('grown',k>=.999)})}}
     if(cur!==t)requestAnimationFrame(update);else ticking=false;
   }
   function kick(){if(!ticking){ticking=true;lastT=performance.now();requestAnimationFrame(update)}}

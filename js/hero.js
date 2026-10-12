@@ -6,18 +6,19 @@
   function cl(x){return Math.min(1,Math.max(0,x))}
   function es(t){return t*t*(3-2*t)}
   function setVars(){
-    var st=document.getElementById('stage'),W=st.clientWidth||innerWidth,H=innerHeight;
+    var st=document.getElementById('stage'),W=st.clientWidth||innerWidth,H=innerHeight,ph=window.MOBILE&&MOBILE.on();
+    if(!lvh){lvh=document.createElement('div');lvh.style.cssText='position:fixed;left:0;top:0;width:0;height:100vh;height:100lvh;visibility:hidden;pointer-events:none';document.body.appendChild(lvh)}
+    if(ph)H=Math.max(H,lvh.offsetHeight);           // phones: the tallest screen (address bar hidden), never changes while scrolling
     st.style.setProperty('--hw',(window.MOBILE&&MOBILE.on()?MOBILE.hawaW(W,H):Math.max(W*1.02,1.3*H))+'px');
     if(hawa.naturalWidth)st.style.setProperty('--har',(hawa.naturalHeight/hawa.naturalWidth*(window.MOBILE&&MOBILE.on()?1:1.18)).toFixed(4));   // phones: true shape, no stretch
     st.style.setProperty('--th',Math.min(.74*H,1.18*W)+'px');
     // phones: the screen gets taller when the address bar hides; size the hero to the tallest screen so nothing shows under it
-    if(!lvh){lvh=document.createElement('div');lvh.style.cssText='position:fixed;left:0;top:0;width:0;height:100vh;height:100lvh;visibility:hidden;pointer-events:none';document.body.appendChild(lvh)}
     st.style.height=Math.max(H,lvh.offsetHeight)+'px';
   }
   var lw=0,lh=0,rq=0,lvh=null;
   function doRefit(){rq=0;setVars();layout();readTarget();cur=target;render(cur)}
   function refit(){if(rq)return;rq=requestAnimationFrame(doRefit)}
-  function onSize(){if(innerWidth!==lw||innerHeight!==lh){lw=innerWidth;lh=innerHeight;refit()}}
+  function onSize(){var ph=window.MOBILE&&MOBILE.on();if(innerWidth!==lw||(!ph&&innerHeight!==lh)){lw=innerWidth;lh=innerHeight;refit()}}
   function layout(){
     vh=document.getElementById('stage').offsetHeight||innerHeight;   // the stage is as tall as the tallest phone screen
     var H=hawa.offsetHeight||vh*1.5;
@@ -42,7 +43,7 @@
   }
   function loop(now){
     var dt=Math.min(0.05,(now-last)/1000||0.016);last=now;
-    cur+=(target-cur)*(1-Math.exp(-dt*14));
+    cur+=(target-cur)*(1-Math.exp(-dt*(window.MOBILE&&MOBILE.on()?26:14)));   // phones follow the finger more tightly
     if(Math.abs(target-cur)<0.3)cur=target;
     render(cur);
     if(cur!==target)requestAnimationFrame(loop);else running=false;
