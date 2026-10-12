@@ -25,3 +25,14 @@
   try{if(localStorage.getItem('sa-rsvp')==='yes')accepted(false)}catch(e){}
   btn.addEventListener('click',function(){accepted(true);try{localStorage.setItem('sa-rsvp','yes')}catch(e){}});
 })();
+
+/* the "Hawa Mahal" name sits just under the frame: the frame's foot is measured (portrait screens centre the frame,
+   so its foot moves with the screen height) and handed to css/rsvp.css as --p6fb */
+(function(){
+  var sec=document.getElementById('pg6'),arch=sec&&sec.querySelector('.p6-arch');if(!arch)return;
+  var lw=0;
+  function place(){sec.style.setProperty('--p6fb',(arch.offsetTop+arch.offsetHeight).toFixed(1)+'px')}
+  addEventListener('resize',function(){if(innerWidth!==lw){lw=innerWidth;place()}});
+  addEventListener('load',place);if(document.fonts&&document.fonts.ready)document.fonts.ready.then(place);
+  lw=innerWidth;place();
+})();

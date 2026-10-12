@@ -103,3 +103,8 @@
  background:url(../assets/img/lotus-ornament.webp) center/contain no-repeat;filter:drop-shadow(0 4px 6px rgba(20,0,6,.55)) drop-shadow(0 0 10px rgba(255,200,90,.35))}
 .p6-fr-b{height:calc(var(--aw)*.036);filter:drop-shadow(0 5px 7px rgba(20,0,6,.5)) drop-shadow(0 0 8px rgba(255,200,90,.25))}
 .p6-tag{bottom:calc(clamp(96px,12.5vw,160px)/2 + 8px)}
+
+/* portrait screens: the "Hawa Mahal" name just under the frame (below the lotus medallion on its bottom rod) */
+@media (orientation:portrait) and (max-width:1100px){
+ .p6-tag{top:calc(var(--p6fb,100%) + clamp(26px,calc(var(--aw)*.1),56px));bottom:auto;transform:translate(-50%,0)}
+}
