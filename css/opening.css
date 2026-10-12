@@ -6,9 +6,13 @@
 .op-on .op{display:block}
 html.op-lock,html.op-lock body{overflow:hidden}
 .op{position:fixed;z-index:1000;inset:0;overflow:hidden;cursor:pointer;touch-action:manipulation;-webkit-user-select:none;user-select:none;
- -webkit-tap-highlight-color:transparent;background:#5c0f22 url(../assets/img/burgundy-paisley.webp) 0 0/min(760px,100vw) auto repeat;
+ -webkit-tap-highlight-color:transparent;background:#2a0d0c;
  --tex:repeating-linear-gradient(0deg,rgba(255,255,255,.022) 0 1px,transparent 1px 3px),repeating-linear-gradient(90deg,rgba(0,0,0,.05) 0 1px,transparent 1px 3px)}
-.op::before{content:"";position:absolute;inset:0;pointer-events:none;background:radial-gradient(90% 70% at 50% 45%,transparent 30%,rgba(25,0,8,.7))}
+/* behind the envelope: the painted arches of Patrika Gate, Jaipur, softly darkened round the edges so the envelope stands
+   out; it fills the screen (on wide screens the painted arch with the palace scene frames the envelope) */
+.op-bg{position:absolute;inset:0;pointer-events:none;background:url(../assets/img/opening-gate.webp) 50% 38%/cover no-repeat}
+@media (min-aspect-ratio:4/5){.op-bg{background-position:50% 30%}}
+.op-shade{position:absolute;inset:0;pointer-events:none;background:radial-gradient(85% 65% at 50% 48%,rgba(20,4,8,.12) 30%,rgba(20,4,8,.62))}
 .op-ep{position:absolute;margin:0;will-change:transform,opacity}
 
 /* ---- the envelope: the inside (back), three folded flaps in front with soft seams, the top flap with lace ---- */
@@ -43,7 +47,8 @@ html.op-lock,html.op-lock body{overflow:hidden}
 .op-seal .wax::before{content:"";position:absolute;inset:13%;border-radius:50%;border:2px solid rgba(242,201,110,.7)}
 .op-seal .wax b{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font:700 calc(var(--sd)*.26)/1 "Cinzel",Georgia,serif;letter-spacing:.02em;color:#f2c96e}
 .op-seal .wax b i{font-style:normal;margin:0 .12em;opacity:.8;font-weight:600}
-.op-hint{left:0;right:0;text-align:center;font:600 clamp(11px,2.8vmin,14px)/1 "Cinzel",Georgia,serif;letter-spacing:.3em;text-transform:uppercase;color:#f2d79a;
+.op-hint{left:50%!important;right:auto;width:max-content!important;max-width:92vw;height:auto!important;translate:-50% 0;padding:.6em 1.2em .55em 1.5em;border-radius:99px;
+ background:rgba(40,6,14,.72);box-shadow:inset 0 0 0 1px rgba(242,201,110,.55);text-align:center;font:600 clamp(11px,2.8vmin,14px)/1 "Cinzel",Georgia,serif;letter-spacing:.3em;text-transform:uppercase;color:#f2d79a;
  text-shadow:0 2px 6px rgba(20,0,6,.8);animation:ophint 1.8s ease-in-out infinite}
 @keyframes ophint{0%,100%{opacity:.45}50%{opacity:1}}
 .op-tap{position:absolute;z-index:20;border-radius:50%;cursor:pointer;background:transparent;border:0;padding:0}
