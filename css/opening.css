@@ -1,102 +1,66 @@
-/* Opening: the guest's name on velvet curtains, Tap to Open -> the curtains part -> a gold arch stage with page 1 of the
-   invitation inside it -> the camera moves into the arch until page 1 fills the screen, and the site carries on.
-   Driven by js/opening.js */
+/* Opening: the wax-sealed patrika. A velvet maroon envelope with a scalloped lace flap and an S|A wax seal, addressed
+   to the guest; tall on portrait screens, square on wide ones. Tap: the seal cracks into two pieces, the flap opens,
+   the card (a copy of page 1 on cream paper) rises out, zooms to fill the screen, the paper turns into page 1's sky and
+   Hawa Mahal rises; the real page 1 is underneath in the same place. Driven by js/opening.js */
 .op{display:none}
 .op-on .op{display:block}
 html.op-lock,html.op-lock body{overflow:hidden}
-.op{position:fixed;z-index:1000;inset:0;overflow:hidden;background:#12030a;cursor:pointer;touch-action:manipulation;-webkit-user-select:none;user-select:none;
- -webkit-tap-highlight-color:transparent;--vh:1vh;
- --sw:min(84vw,calc(var(--vh)*70));--ah:min(calc(var(--vh)*76),calc(var(--sw)*1.8));--at:max(calc(var(--vh)*7),calc((var(--vh)*100 - var(--ah))*.42))}
-@supports (height:1dvh){.op{--vh:1dvh}}
-.op :not(.op-clone)>img{position:absolute;display:block;max-width:none;height:auto;pointer-events:none;-webkit-user-drag:none}
-.op-stage,.op-front{position:absolute;inset:0;transform-origin:0 0;will-change:transform,opacity}
-.op canvas{position:absolute;display:block}
-.op-black{position:absolute;inset:0;z-index:9;background:#000;pointer-events:none;transition:opacity 1.4s ease}
+.op{position:fixed;z-index:1000;inset:0;overflow:hidden;cursor:pointer;touch-action:manipulation;-webkit-user-select:none;user-select:none;
+ -webkit-tap-highlight-color:transparent;background:#5c0f22 url(../assets/img/burgundy-paisley.webp) 0 0/min(760px,100vw) auto repeat;
+ --tex:repeating-linear-gradient(0deg,rgba(255,255,255,.022) 0 1px,transparent 1px 3px),repeating-linear-gradient(90deg,rgba(0,0,0,.05) 0 1px,transparent 1px 3px)}
+.op::before{content:"";position:absolute;inset:0;pointer-events:none;background:radial-gradient(90% 70% at 50% 45%,transparent 30%,rgba(25,0,8,.7))}
+.op-ep{position:absolute;margin:0;will-change:transform,opacity}
 
-/* ---- 2. the stage ---- */
-.op-velvet{inset:0;width:100%;height:100%}
-.op-arch{position:absolute;z-index:2;left:50%;top:var(--at);width:var(--sw);height:var(--ah);margin-left:calc(var(--sw)/-2)}
-/* the window inside the arch, shaped like its opening; page 1 of the site appears in it */
-.op-win{position:absolute;inset:0;overflow:hidden;background:radial-gradient(80% 60% at 50% 45%,#5a0f22,#1e0409);
- -webkit-mask-image:url(../assets/img/family-arch-mask-top.png),url(../assets/img/family-arch-mask-middle.png),url(../assets/img/family-arch-mask-bottom.png);
- mask-image:url(../assets/img/family-arch-mask-top.png),url(../assets/img/family-arch-mask-middle.png),url(../assets/img/family-arch-mask-bottom.png);
- -webkit-mask-size:100% calc(var(--sw)*900/1266),100% calc(100% - var(--sw)*1000/1266),100% calc(var(--sw)*133/1266);
- mask-size:100% calc(var(--sw)*900/1266),100% calc(100% - var(--sw)*1000/1266),100% calc(var(--sw)*133/1266);
- -webkit-mask-position:0 0,0 calc(var(--sw)*880/1266),0 100%;mask-position:0 0,0 calc(var(--sw)*880/1266),0 100%;-webkit-mask-repeat:no-repeat;mask-repeat:no-repeat}
-.op-clone{position:absolute!important;left:0;top:0;margin:0;transform-origin:0 0;will-change:transform,opacity;opacity:0;pointer-events:none}
-.op-clone .names{animation:none!important}
-.op-frame{position:absolute;inset:0;filter:drop-shadow(0 10px 18px rgba(0,0,0,.55))}
-.op-arch i{position:absolute;left:0;right:0;background:center top/100% 100% no-repeat}
-.op-arch .oa-t{top:0;height:calc(var(--sw)*900/1266);background-image:url(../assets/img/family-arch-top.webp)}
-.op-arch .oa-m{top:calc(var(--sw)*880/1266);bottom:calc(var(--sw)*120/1266);background-image:url(../assets/img/family-arch-middle.webp)}
-.op-arch .oa-b{bottom:0;height:calc(var(--sw)*133/1266);background-image:url(../assets/img/family-arch-bottom.webp)}
-.op-arch .op-chand{z-index:3;top:calc(var(--sw)*.085);width:calc(var(--sw)*.42)}
-.op-pil{z-index:1;top:calc(var(--at) - var(--ah)*.05);height:calc(var(--ah)*1.05)!important;width:auto;filter:drop-shadow(0 12px 20px rgba(0,0,0,.6))}
-.op-pil.l{left:calc(50% - var(--sw)/2 - var(--ah)*1.05*555/1937*.84)}
-.op-pil.r{right:calc(50% - var(--sw)/2 - var(--ah)*1.05*555/1937*.84);transform:scaleX(-1)}
-/* the stage floor: polished dark wood catching the arch's warm light, with a red velvet carpet edged in gold running
-   from the arch towards the viewer in perspective */
-.op-floor{position:absolute;z-index:0;left:0;right:0;top:calc(var(--at) + var(--ah) - 4px);bottom:0;overflow:hidden;
- background:radial-gradient(55% 60% at 50% 0%,rgba(255,196,120,.34),rgba(255,160,90,.1) 45%,transparent 72%),
-  linear-gradient(180deg,rgba(255,220,170,.12),transparent 18%),
-  repeating-linear-gradient(90deg,rgba(0,0,0,0) 0 calc(var(--sw)*.24),rgba(0,0,0,.16) calc(var(--sw)*.24) calc(var(--sw)*.24 + 1px)),
-  linear-gradient(180deg,#5a2414,#3a140a 40%,#1c0805 80%,#120403)}
-.op-floor::before,.op-floor::after{content:"";position:absolute;inset:0}
-.op-floor::before{background:linear-gradient(180deg,#f2c96e,#c9952e 60%,#8a5a14);
- clip-path:polygon(calc(50% - var(--sw)*.3) 0,calc(50% + var(--sw)*.3) 0,calc(50% + var(--sw)*.62) 100%,calc(50% - var(--sw)*.62) 100%)}
-.op-floor::after{background:radial-gradient(circle at 50% 50%,rgba(242,201,110,.22) 0 1.2px,transparent 1.6px) 0 0/14px 14px,
-  linear-gradient(90deg,rgba(0,0,0,.28),transparent 22%,rgba(255,170,150,.14) 50%,transparent 78%,rgba(0,0,0,.28)),
-  linear-gradient(180deg,#a3182f,#7d0f22 45%,#4e0714);
- clip-path:polygon(calc(50% - var(--sw)*.28) 0,calc(50% + var(--sw)*.28) 0,calc(50% + var(--sw)*.585) 100%,calc(50% - var(--sw)*.585) 100%)}
-.op-urn{z-index:3;width:calc(var(--sw)*.32);top:calc(var(--at) + var(--ah) - var(--sw)*.32*927/760 + var(--sw)*.03);filter:drop-shadow(0 10px 14px rgba(0,0,0,.55))}
-.op-urn.l{left:calc(50% - var(--sw)*.64)}
-.op-urn.r{right:calc(50% - var(--sw)*.64);transform:scaleX(-1)}
-.op-lotus-c{z-index:4;left:50%;width:calc(var(--sw)*.5);top:calc(var(--at) + var(--ah) - var(--sw)*.5*620/900*.6);transform:translateX(-50%);filter:drop-shadow(0 8px 12px rgba(0,0,0,.5))}
-.op-dim{position:absolute;z-index:6;inset:0;background:#000;opacity:.6;pointer-events:none}
+/* ---- the envelope: the inside (back), three folded flaps in front with soft seams, the top flap with lace ---- */
+.op-back{border-radius:5px;background:var(--tex),linear-gradient(180deg,#3a0912,#56111d 45%,#5e1320);box-shadow:0 28px 50px rgba(15,0,5,.55)}
+.op-pk{position:absolute;inset:0}
+.op-pk i{position:absolute;inset:0;border-radius:5px}
+.op-pk.l{filter:drop-shadow(3px 0 3px rgba(25,0,8,.35))}
+.op-pk.r{filter:drop-shadow(-3px 0 3px rgba(25,0,8,.4))}
+.op-pk.b{filter:drop-shadow(0 -3px 4px rgba(25,0,8,.4))}
+.op-pk.l i{background:var(--tex),linear-gradient(90deg,#7a1c2b,#6a1624)}
+.op-pk.r i{background:var(--tex),linear-gradient(270deg,#6c1723,#5e121d)}
+.op-pk.b i{background:var(--tex),linear-gradient(180deg,#781b29,#651420 70%,#5c111c)}
+.op-pocket svg,.op-flap svg{position:absolute;inset:0;width:100%;height:100%;overflow:visible}
+.op-to{position:absolute;left:0;right:0;text-align:center;color:#f2d79a;text-shadow:0 2px 6px rgba(20,0,6,.7)}
+.op-to span{display:block}
+.op-to .k{font:600 clamp(10px,2.6vmin,14px)/1 "Cinzel",Georgia,serif;letter-spacing:.32em;color:#e8c97a}
+.op-to .g{margin:.25em 0 .15em;font:400 clamp(20px,5.6vmin,36px)/1.15 "Yatra One",Georgia,serif;overflow-wrap:anywhere;
+ background:linear-gradient(180deg,#fff6d8,#f6d48a 50%,#d9a441);-webkit-background-clip:text;background-clip:text;color:transparent;filter:drop-shadow(0 2px 2px rgba(20,0,6,.8))}
+.op-to .i{font:italic 500 clamp(13px,3.4vmin,19px)/1.3 "Cormorant Garamond",Georgia,serif;color:#f6e2c0}
+.op-flap{transform-origin:50% 0;filter:drop-shadow(0 4px 5px rgba(25,0,8,.45))}
+.op-flap .face{position:absolute;inset:0;clip-path:polygon(0 0,100% 0,53.5% 95%,50% 100%,46.5% 95%)}
+.op-flap .front{background:var(--tex),linear-gradient(180deg,#701926,#7c1e2d 60%,#6e1825)}
+.op-flap .back{background:var(--tex),linear-gradient(0deg,#4e0f1a,#5f1320);opacity:0}
 
-/* ---- the chandelier (drawn by js/opening.js) ---- */
-.op-chand{position:absolute;left:50%;transform:translateX(-50%);pointer-events:none;--glow:.75}
-.op-chand svg{display:block;width:100%;height:auto;overflow:visible;filter:drop-shadow(0 0 5px rgba(255,236,190,.7))}
-.op-chand .ch-halo{opacity:var(--glow)}
-.op-chand .ch-fl{transform-box:fill-box;transform-origin:50% 100%;animation:chfl 1.6s ease-in-out infinite alternate}
-.op-chand .ch-sp{opacity:0;animation:chsp 2.6s ease-in-out infinite}
-@keyframes chfl{0%{transform:scale(1,1)}40%{transform:scale(.92,1.08)}100%{transform:scale(1.05,.94)}}
-@keyframes chsp{0%,70%,100%{opacity:0}82%{opacity:1}}
+/* ---- the wax seal: a perfect circle, no shadows; it cracks off-centre into a big piece and a small one ---- */
+.op-seal{width:var(--sd);height:var(--sd);pointer-events:none}
+.op-seal .h{position:absolute;inset:0}
+.op-seal .h.l{clip-path:polygon(0 0,74% 0,66% 15%,75% 30%,60% 47%,68% 62%,52% 80%,58% 100%,0 100%)}
+.op-seal .h.r{clip-path:polygon(74% 0,100% 0,100% 100%,58% 100%,52% 80%,68% 62%,60% 47%,75% 30%,66% 15%)}
+.op-seal .crack{position:absolute;inset:0;width:100%;height:100%;opacity:0;clip-path:circle(50%)}
+.op-seal .wax{position:absolute;inset:0;border-radius:50%;background:radial-gradient(circle at 36% 30%,#d8404d 0,#ad1c30 42%,#7c0f22 100%)}
+.op-seal .wax::before{content:"";position:absolute;inset:13%;border-radius:50%;border:2px solid rgba(242,201,110,.7)}
+.op-seal .wax b{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font:700 calc(var(--sd)*.26)/1 "Cinzel",Georgia,serif;letter-spacing:.02em;color:#f2c96e}
+.op-seal .wax b i{font-style:normal;margin:0 .12em;opacity:.8;font-weight:600}
+.op-hint{left:0;right:0;text-align:center;font:600 clamp(11px,2.8vmin,14px)/1 "Cinzel",Georgia,serif;letter-spacing:.3em;text-transform:uppercase;color:#f2d79a;
+ text-shadow:0 2px 6px rgba(20,0,6,.8);animation:ophint 1.8s ease-in-out infinite}
+@keyframes ophint{0%,100%{opacity:.45}50%{opacity:1}}
+.op-tap{position:absolute;z-index:20;border-radius:50%;cursor:pointer;background:transparent;border:0;padding:0}
+.op-tap:focus-visible{outline:2px solid #f2c96e;outline-offset:4px}
 
-/* ---- 1. front curtains ---- */
-.op-curtain{inset:0;width:100%;height:100%}
-.op-hang{position:absolute;inset:0;z-index:2;pointer-events:none}
-.op-gar{top:calc(var(--vh)*13);height:calc(var(--vh)*30)!important;width:auto;transform-origin:50% 0;filter:drop-shadow(0 8px 10px rgba(0,0,0,.55));animation:opsw 4.6s ease-in-out infinite alternate}
-.op-gar.l{left:3vw}
-.op-gar.r{right:3vw;animation-delay:-2.2s}
-/* a gold wall lamp fixed to each side of the screen, its wall plate on the edge */
-.op-lamp{position:absolute;top:calc(var(--vh)*44);width:min(17vw,calc(var(--vh)*21))}
-.op-lamp.l{left:0;transform:scaleX(-1)}
-.op-lamp.r{right:0}
-.op .op-lamp img{position:relative;width:100%;filter:drop-shadow(0 8px 12px rgba(0,0,0,.55))}
-.op-lamp i{position:absolute;left:31%;top:57%;width:300%;aspect-ratio:1;transform:translate(-50%,-50%);border-radius:50%;
- background:radial-gradient(circle,rgba(255,206,130,.5),rgba(255,150,70,.16) 35%,transparent 68%);mix-blend-mode:screen;animation:oplamp 2.4s ease-in-out infinite alternate}
-@keyframes oplamp{0%{opacity:.75}35%{opacity:1}60%{opacity:.85}100%{opacity:.95}}
-@keyframes opsw{from{transform:rotate(-1.2deg)}to{transform:rotate(1.2deg)}}
-.op-corner{z-index:3;bottom:calc(var(--vh)*-2);width:min(46vw,calc(var(--vh)*34),360px);filter:drop-shadow(0 -4px 14px rgba(0,0,0,.6))}
-.op-corner.l{left:-7vw}
-.op-corner.r{right:-7vw;transform:scaleX(-1)}
+/* ---- the card: a copy of page 1 (the whole screen), scaled down into the envelope; cream paper over its sky ---- */
+.op-card{position:absolute;left:0;top:0;overflow:hidden;transform-origin:50% 0;will-change:transform}
+.op-card .op-clone{position:absolute!important;left:0;top:0}
+.op-paper{position:absolute;inset:0;background:#fffaf0 url(../assets/img/gate-swirl-paper.webp) 0 0/420px auto}
+.op-paper::after{content:"";position:absolute;inset:0;background:radial-gradient(80% 70% at 50% 40%,transparent 50%,rgba(201,149,46,.18))}
+.op-frame{position:absolute;z-index:5;border:2px solid #c9952e;border-radius:10px;box-shadow:inset 0 0 0 5px #fffaf0,inset 0 0 0 6px rgba(201,149,46,.6);pointer-events:none}
+.op-frame i{position:absolute;width:clamp(26px,6vmin,46px);height:clamp(26px,6vmin,46px);border:2px solid #c9952e}
+.op-frame i:nth-child(1){left:8px;top:8px;border-right:0;border-bottom:0;border-radius:8px 0 0 0}
+.op-frame i:nth-child(2){right:8px;top:8px;border-left:0;border-bottom:0;border-radius:0 8px 0 0}
+.op-frame i:nth-child(3){left:8px;bottom:8px;border-right:0;border-top:0;border-radius:0 0 0 8px}
+.op-frame i:nth-child(4){right:8px;bottom:8px;border-left:0;border-top:0;border-radius:0 0 8px 0}
 
-/* the guest's name and the Tap to Open button */
-.op-card{position:absolute;z-index:5;left:50%;top:60%;width:min(88vw,560px);transform:translate(-50%,-50%);text-align:center;color:#f6e2c0;
- opacity:0;transition:opacity 1.2s ease;text-shadow:0 2px 8px rgba(0,0,0,.7)}
-.op-card p{margin:0}
-.op-orn{display:block;width:clamp(120px,34vw,200px);height:auto;margin:0 auto .6em}
-.op-dear{font:700 clamp(13px,3.4vw,18px)/1.2 "Cinzel",Georgia,serif;letter-spacing:.32em;text-transform:uppercase;color:#e8c97a}
-.op-name{margin-top:.12em!important;font:400 clamp(34px,10vw,66px)/1.15 "Yatra One",Georgia,serif;overflow-wrap:anywhere}
-.op-name span{background:linear-gradient(180deg,#fff3cf,#f2c96e 50%,#c9952e);-webkit-background-clip:text;background-clip:text;color:transparent;
- filter:drop-shadow(0 3px 6px rgba(0,0,0,.6));text-shadow:none}
-.op-inv{margin-top:.2em!important;font:italic 600 clamp(18px,4.8vw,26px)/1.3 "Cormorant Garamond",Georgia,serif;color:#f6e2c0}
-.op-tap{margin-top:1.3em;padding:.8em 2em;border:1.5px solid #e8c97a;border-radius:99px;cursor:pointer;color:#fff1c4;
- font:700 clamp(13px,3.4vw,16px)/1 "Cinzel",Georgia,serif;letter-spacing:.2em;text-transform:uppercase;
- background:linear-gradient(180deg,rgba(150,28,58,.92),rgba(80,8,26,.94));box-shadow:0 8px 22px rgba(0,0,0,.5),0 0 22px rgba(242,201,110,.25),inset 0 0 0 3px rgba(255,241,196,.12);
- transition:transform .25s,box-shadow .25s;-webkit-tap-highlight-color:transparent}
-.op-tap:hover,.op-tap:focus-visible{transform:translateY(-2px);box-shadow:0 12px 26px rgba(0,0,0,.55),0 0 30px rgba(242,201,110,.45),inset 0 0 0 3px rgba(255,241,196,.18);outline:none}
-.op.ready .op-card{opacity:1}
-.op.go .op-card{opacity:0;transition-duration:.45s}
-@media (prefers-reduced-motion:reduce){.op-gar,.op-lamp i{animation:none}}
+/* fades in from black once the fonts are ready, so the guest's name never flashes in a fallback font */
+.op-black{position:absolute;inset:0;z-index:30;background:#1a0309;pointer-events:none;transition:opacity .7s ease}
+@media (prefers-reduced-motion:reduce){.op-hint{animation:none}}

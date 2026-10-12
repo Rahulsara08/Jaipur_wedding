@@ -26,7 +26,7 @@
   <link rel="stylesheet" href="css/rsvp.css?v=f2999fbe">
   <link rel="stylesheet" href="css/end.css?v=55e9b6df">
   <link rel="stylesheet" href="css/garden.css?v=ef1a6162">
-  <link rel="stylesheet" href="css/opening.css?v=d3322faa">
+  <link rel="stylesheet" href="css/opening.css?v=fd520877">
   <!-- phones only: their own layout values (desktop untouched) -->
   <link rel="stylesheet" href="css/mobile.css?v=7c8c5cd2" media="(max-width: 767px)">
   <script src="js/config.js?v=9e107404"></script>
@@ -34,42 +34,24 @@
 </head>
 <body>
 <div class="op" id="op" aria-label="Wedding invitation, tap to open">
-  <!-- 2. the stage: a gold arch with page 1 of the invitation inside it; the camera then moves into the arch -->
-  <div class="op-stage" id="opStage" aria-hidden="true">
-    <canvas class="op-velvet" id="opVelvet"></canvas>
-    <img class="op-pil l" src="assets/img/rsvp-pillar.webp" alt="" width="555" height="1937">
-    <img class="op-pil r" src="assets/img/rsvp-pillar.webp" alt="" width="555" height="1937">
-    <div class="op-floor"></div>
-    <div class="op-arch" id="opArch">
-      <div class="op-win" id="opWin"></div>
-      <div class="op-frame"><i class="oa-t"></i><i class="oa-m"></i><i class="oa-b"></i></div>
-      <div class="op-chand" id="opChand"></div>
-    </div>
-    <img class="op-urn l" src="assets/img/flower-urn.webp" alt="" width="760" height="927">
-    <img class="op-urn r" src="assets/img/flower-urn.webp" alt="" width="760" height="927">
-    <img class="op-lotus-c" src="assets/img/lotus-ornament.webp" alt="" width="900" height="620">
-    <i class="op-dim" id="opDim"></i>
+  <!-- the wax-sealed patrika: a velvet maroon envelope with a lace flap, addressed to the guest. Tap: the seal breaks,
+       the flap opens, the card (a copy of page 1) rises out and zooms to fill the screen, its paper turns into page 1's
+       sky and Hawa Mahal rises; then the real page 1, in the same place underneath, takes over (js/opening.js) -->
+  <i class="op-ep op-back" id="opBack"></i>
+  <div class="op-card" id="opCard" aria-hidden="true"><div class="op-frame" id="opFrame"><i></i><i></i><i></i><i></i></div></div>
+  <div class="op-ep op-pocket" id="opPocket">
+    <div class="op-pk l"><i id="opPkL"></i></div><div class="op-pk r"><i id="opPkR"></i></div><div class="op-pk b"><i id="opPkB"></i></div>
+    <svg id="opPsvg" preserveAspectRatio="none" aria-hidden="true"></svg>
+    <div class="op-to" id="opTo"><span class="k">Dear</span><span class="g guest-name">Family &amp; Friends</span><span class="i">you are cordially invited</span></div>
   </div>
-
-  <!-- 1. the front curtains: garlands, a lamp on each side, the guest's name and "Tap to Open" -->
-  <div class="op-front" id="opFront">
-    <canvas class="op-curtain" id="opCurtain" aria-hidden="true"></canvas>
-    <div class="op-hang" id="opHang" aria-hidden="true">
-      <img class="op-gar l" src="assets/img/garland-left.webp" alt="" width="252" height="1222">
-      <img class="op-gar r" src="assets/img/garland-right.webp" alt="" width="252" height="1222">
-      <div class="op-lamp l"><i></i><img src="assets/img/wall-lamp.webp" alt="" width="754" height="1221"></div>
-      <div class="op-lamp r"><i></i><img src="assets/img/wall-lamp.webp" alt="" width="754" height="1221"></div>
-    </div>
-    <img class="op-corner l" src="assets/img/lotus-ornament.webp" alt="" width="900" height="620" aria-hidden="true">
-    <img class="op-corner r" src="assets/img/lotus-ornament.webp" alt="" width="900" height="620" aria-hidden="true">
-    <div class="op-card" id="opCard">
-      <svg class="op-orn" viewBox="-70 -10 140 20" aria-hidden="true"><path d="M-66 2C-48 2-40-6-26-3-18-1-16 4-9 3-4 2-3-3 0-6 3-3 4 2 9 3 16 4 18-1 26-3 40-6 48 2 66 2" fill="none" stroke="#d9b56a" stroke-width="1.2"/><path d="M0-9 3-5 0-1-3-5Z" fill="#e8c97a"/><circle cx="-26" cy="-3" r="1.4" fill="#e8c97a"/><circle cx="26" cy="-3" r="1.4" fill="#e8c97a"/></svg>
-      <p class="op-dear">Dear</p>
-      <p class="op-name"><span class="guest-name">Family &amp; Friends</span></p>
-      <p class="op-inv">you are cordially invited</p>
-      <button class="op-tap" id="opTap" type="button">Tap to Open</button>
-    </div>
+  <div class="op-ep op-flap" id="opFlap" aria-hidden="true"><i class="face front"></i><i class="face back" id="opFlapBack"></i><svg id="opFsvg" preserveAspectRatio="none"></svg></div>
+  <div class="op-ep op-seal" id="opSeal" aria-hidden="true">
+    <div class="h l" id="opSealL"><div class="wax"><b>S<i>|</i>A</b></div></div>
+    <div class="h r" id="opSealR"><div class="wax"><b>S<i>|</i>A</b></div></div>
+    <svg class="crack" id="opCrack" viewBox="0 0 100 100"><polyline points="74,0 66,15 75,30 60,47 68,62 52,80 58,100" fill="none" stroke="#3a0410" stroke-width="2.6" stroke-linejoin="round"/><polyline points="60,47 46,42 38,46" fill="none" stroke="#3a0410" stroke-width="1.4" stroke-linejoin="round"/></svg>
   </div>
+  <p class="op-ep op-hint" id="opHint">Tap the seal to open</p>
+  <button class="op-tap" id="opTap" type="button" aria-label="Open the invitation"></button>
   <i class="op-black" id="opBlack"></i>
 </div>
 <section class="track" id="track">
@@ -371,7 +353,7 @@
 </section>
 
 <script src="js/hero.js?v=0b405bee"></script>
-<script src="js/opening.js?v=56cc90c4"></script>
+<script src="js/opening.js?v=58191baa"></script>
 <script src="js/gate.js?v=635c9850"></script>
 <script src="js/road.js?v=0751f98a"></script>
 <script src="js/events.js?v=5b66ad3a"></script>
