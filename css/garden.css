@@ -101,3 +101,14 @@
 .p8-call svg{width:1.15em;height:1.15em}
 .p8-call:hover,.p8-call:focus-visible{transform:translateY(-2px);outline:none;box-shadow:0 10px 18px rgba(90,15,32,.35),inset 0 0 0 1.5px #f2c96e}
 @media (max-width:600px){.p8-person{flex-basis:100%}}
+
+/* ---- contacts on tablets and computers: the three people in one even row (wider than the text column, over the trees'
+   edges if need be), each name on one line and every line level with its neighbours; larger names and numbers ---- */
+@media (min-width:900px){
+ .p8-people{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:clamp(16px,3vw,48px);position:relative;left:50%;width:min(1120px,92vw);translate:-50% 0;margin-top:1.2em}
+ .p8-person{max-width:none;gap:.3em}
+ .p8-person b{white-space:nowrap;font-size:clamp(26px,2.9vw,40px)}
+ .p8-person small{font-size:clamp(12.5px,1.25vw,16px)}
+ .p8-person .num{font-size:clamp(19px,1.9vw,26px);font-weight:700;letter-spacing:.06em}
+ .p8-call{margin-top:.6em;font-size:clamp(14px,1.3vw,18px)}
+}

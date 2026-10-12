@@ -79,7 +79,7 @@ body::before{content:"";position:fixed;z-index:-1;left:0;top:0;width:100%;height
 .ev-arr{width:34px;margin-top:0;top:auto;bottom:calc(var(--fw)*.205)}
 .ev-arr.prev{left:calc(var(--fw)*.14)}
 .ev-arr.next{right:calc(var(--fw)*.14)}
-.ev-hint,.ev-count{display:none}
+.ev-count{display:none}
 
 /* ---- Amer Fort: the mountains and the fort larger; the small range in front larger still, so it is fully seen ---- */
 .p9-mtn{width:136%;margin-left:-18%}

@@ -19,7 +19,8 @@
   }
   function accepted(first){
     btn.classList.add('done');btn.disabled=true;btn.firstChild.textContent='Accepted with Joy ✓';
-    th.textContent='Thank you! We can\u2019t wait to celebrate with you.';th.classList.add('in');
+    var gn=document.querySelector('.p6-dear .guest-name'),who=gn?gn.textContent.trim():'';
+    th.textContent='Thank you'+(who?', '+who:'')+'! We can\u2019t wait to celebrate with you.';th.classList.add('in');
     if(first)hearts();
   }
   try{if(localStorage.getItem('sa-rsvp')==='yes')accepted(false)}catch(e){}

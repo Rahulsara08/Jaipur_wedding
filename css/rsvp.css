@@ -116,3 +116,9 @@
  filter:drop-shadow(0 5px 7px rgba(20,0,6,.5))}
 .p6-mahal{width:calc(100% - var(--aw)*.064);aspect-ratio:1100/597;margin-bottom:calc(var(--aw)*57/1622 - 1px);
  background-size:100% auto;background-position:center top;-webkit-mask-image:none;mask-image:none}
+
+/* ---- the guest's name on the card, under "R · S · V · P": large maroon letters between two gold rules ---- */
+.p6-dear{margin:.55em 0 .05em;font:italic 600 clamp(16px,4.4cqw,28px)/1.2 "Cormorant Garamond",Georgia,serif;color:#8a5a2a;letter-spacing:.03em}
+.p6-dear .guest-name{display:block;margin-top:.08em;padding:.12em 0 .16em;font:400 normal clamp(24px,7.6cqw,52px)/1.1 "Yatra One",Georgia,serif;color:#7a1530;letter-spacing:.01em;overflow-wrap:anywhere;
+ background:linear-gradient(90deg,transparent,#c9952e 22%,#e8c97a 50%,#c9952e 78%,transparent) center bottom/70% 1.5px no-repeat,
+  linear-gradient(90deg,transparent,#c9952e 22%,#e8c97a 50%,#c9952e 78%,transparent) center top/45% 1px no-repeat}

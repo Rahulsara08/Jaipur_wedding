@@ -156,9 +156,11 @@
   addEventListener('orientationchange',function(){setTimeout(refit,150)});
   geo();rest();
 
-  // fade in from black once the fonts are ready (or after 1.8 s at the latest)
+  // fade in from black once the fonts are ready (or after 1.8 s at the latest); if the guest hasn't tapped 5 s after the
+  // envelope appears, it opens by itself
   var shown=false;
-  function show(){if(shown)return;shown=true;geo();rest();black.style.opacity='0';setTimeout(function(){try{tap.focus({preventScroll:true})}catch(e){}},700)}
+  function show(){if(shown)return;shown=true;geo();rest();black.style.opacity='0';setTimeout(function(){try{tap.focus({preventScroll:true})}catch(e){}},700);
+    setTimeout(function(){if(!opened&&!seeking)open()},5000)}
   if(document.fonts&&document.fonts.ready)document.fonts.ready.then(show);setTimeout(show,1800);
 
   // test aid: #op-seek=2.5 freezes the opening 2.5 s after the tap

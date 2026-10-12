@@ -1,23 +1,20 @@
 (function(){
   var root=document.getElementById('events');if(!root)return;
   var track=document.getElementById('evTrack'),slides=[].slice.call(track.querySelectorAll('.ev-slide'));
-  var n=slides.length,GAP=4000,cur=0,timer=0,resumeT=0,hold=false,visible=true,drag=null;
+  var n=slides.length,GAP=10000,cur=0,timer=0,resumeT=0,hold=false,visible=true,drag=null;
   // dots under the card
   var dots=document.createElement('div');dots.className='ev-dots';dots.setAttribute('role','tablist');
   slides.forEach(function(s,i){var b=document.createElement('button');b.type='button';b.setAttribute('aria-label','Show '+(s.getAttribute('aria-label')||('event '+(i+1))));
     b.addEventListener('click',function(){show(i);seen();userStart();userEnd()});dots.appendChild(b)});
   track.parentNode.insertBefore(dots,track.nextSibling);
-  // arrows on the frame's two sides, a "1 / 5" counter beside the dots and a hint under them, so guests know there
-  // are more events to see; the next arrow nudges until the guest first changes the event themselves
+  // arrows on the frame's two sides and a "1 / 5" counter beside the dots, so guests know there are more events to see;
+  // the next arrow nudges until the guest first changes the event themselves
   var CHEV='<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 5l7 7-7 7" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></svg>';
   function arrow(cls,label,step){var b=document.createElement('button');b.type='button';b.className='ev-arr '+cls;b.setAttribute('aria-label',label);b.innerHTML=CHEV;
     b.addEventListener('pointerdown',function(e){e.stopPropagation()});
     b.addEventListener('click',function(){show(cur+step);seen();userStart();userEnd()});track.appendChild(b);return b}
   arrow('prev','Previous event',-1);arrow('next','Next event',1);
   var count=document.createElement('span');count.className='ev-count';count.setAttribute('aria-live','polite');dots.appendChild(count);
-  var hint=document.createElement('p');hint.className='ev-hint';
-  hint.innerHTML='<span class="ev-hand" aria-hidden="true">&#128070;</span><span>'+(matchMedia('(hover: none)').matches?'Swipe':'Use the arrows')+' to see all '+n+' events</span>';
-  dots.parentNode.insertBefore(hint,dots.nextSibling);
   function seen(){root.classList.add('ev-seen')}
   function show(i){
     cur=(i+n)%n;
