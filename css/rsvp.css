@@ -108,3 +108,11 @@
 @media (orientation:portrait) and (max-width:1100px){
  .p6-tag{top:calc(var(--p6fb,100%) + clamp(26px,calc(var(--aw)*.1),56px));bottom:auto;transform:translate(-50%,0)}
 }
+
+/* ---- the frame's foot: the bottom rod is the frame's own side moulding turned on its side (same thickness and
+   shading), with no plinth; Hawa Mahal fills the frame's inner width and stands right on that rod ---- */
+.p6-plinth{display:none}
+.p6-fr-b{left:0;right:0;height:calc(var(--aw)*57/1622);background:url(../assets/img/rsvp-frame-bottom.webp) center/100% 100% no-repeat;
+ filter:drop-shadow(0 5px 7px rgba(20,0,6,.5))}
+.p6-mahal{width:calc(100% - var(--aw)*.064);aspect-ratio:1100/597;margin-bottom:calc(var(--aw)*57/1622 - 1px);
+ background-size:100% auto;background-position:center top;-webkit-mask-image:none;mask-image:none}
