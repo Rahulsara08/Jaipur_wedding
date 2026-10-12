@@ -18,7 +18,7 @@
   scrollTo(0,0);
 
   var back=$('opBack'),pocket=$('opPocket'),flap=$('opFlap'),seal=$('opSeal'),hint=$('opHint'),tap=$('opTap'),card=$('opCard'),
-      frame=$('opFrame'),black=$('opBlack');
+      frame=$('opFrame'),black=$('opBlack'),welcome=$('opWelcome');
   var reduce=matchMedia('(prefers-reduced-motion: reduce)').matches;
   var anims=[],G={},opened=false,seeking=false,clone=null,C={};
 
@@ -31,8 +31,8 @@
       EH=Math.min(W*.86*R,H*.6);EW=EH/R;ex=(W-EW)/2;ey=(H-EH)/2+H*.02;
       cw=EW*.9;cs=cw/W;ch=EH*.92;clipB=Math.max(0,H-ch/cs);top0=ey+EH*.04;down=EH*.22;
     }else{                                     // wide screens: a square envelope; the card lies in the bottom of its pocket
-      EW=EH=Math.min(H*.66,W*.56,600);cw=EW*.9;cs=cw/W;ch=H*cs;
-      ex=(W-EW)/2;ey=(H-EH)/2-H*.02;top0=ey+EH*.95-ch;down=EH*.2;
+      EW=EH=Math.min(H*.6,W*.56,600);cw=EW*.9;cs=cw/W;ch=H*cs;
+      ex=(W-EW)/2;ey=(H-EH)/2+H*.08;top0=ey+EH*.95-ch;down=EH*.2;   // a little low, leaving the sky above for "Welcome to Jaipur"
     }
     var fd=Math.min(EH*.56,EW*.62),vd=fd*.68;               // top flap depth; how deep the pocket opens (the flap covers it)
     var sd=Math.max(48,Math.min(96,EW*.24)),topMin=Math.max(14,H*.025);
@@ -54,6 +54,8 @@
     place(tap,ex+EW/2-sd*.8,ey+fd-sd*.95,sd*1.6,sd*1.6);
     // the card is the whole screen, scaled from its top centre; on portrait screens only its top part shows until it zooms
     card.style.width=W+'px';card.style.height=H+'px';
+    // "Welcome to Jaipur" fills the sky above the envelope
+    if(welcome){var band=Math.max(60,ey-10);welcome.style.height=band+'px';welcome.style.setProperty('--ws',Math.min(band/1.7,W*.15,110).toFixed(1)+'px')}
   }
   // the lace edge of the top flap: scallops along both slanted edges, each with an eyelet, a row of tiny holes, a stitch line
   function lace(EW,fd){
@@ -112,7 +114,7 @@
 
   /* ---------- the opening, in ms from the tap ---------- */
   function open(){
-    if(opened)return;opened=true;tap.style.display='none';
+    if(opened)return;opened=true;tap.style.display='none';if(welcome)welcome.classList.add('out');
     if(reduce){op.style.transition='opacity .7s';op.style.opacity='0';setTimeout(finish,750);return}
     makeCard();
     var s=G,out='cubic-bezier(.5,0,.75,.4)';

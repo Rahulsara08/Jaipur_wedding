@@ -1,5 +1,5 @@
 /* Opening: the wax-sealed patrika. A velvet maroon envelope with a scalloped lace flap and an S|A wax seal, addressed
-   to the guest; tall on portrait screens, square on wide ones. Tap: the seal cracks into two pieces, the flap opens,
+   to the guest, over Hawa Mahal with "Welcome to Jaipur" in the sky; tall on portrait screens, square on wide ones. Tap: the seal cracks into two pieces, the flap opens,
    the card (a copy of page 1 on cream paper) rises out, zooms to fill the screen, the paper turns into page 1's sky and
    Hawa Mahal rises; the real page 1 is underneath in the same place. Driven by js/opening.js */
 .op{display:none}
@@ -8,11 +8,34 @@ html.op-lock,html.op-lock body{overflow:hidden}
 .op{position:fixed;z-index:1000;inset:0;overflow:hidden;cursor:pointer;touch-action:manipulation;-webkit-user-select:none;user-select:none;
  -webkit-tap-highlight-color:transparent;background:#2a0d0c;
  --tex:repeating-linear-gradient(0deg,rgba(255,255,255,.022) 0 1px,transparent 1px 3px),repeating-linear-gradient(90deg,rgba(0,0,0,.05) 0 1px,transparent 1px 3px)}
-/* behind the envelope: the painted arches of Patrika Gate, Jaipur, softly darkened round the edges so the envelope stands
-   out; it fills the screen (on wide screens the painted arch with the palace scene frames the envelope) */
-.op-bg{position:absolute;inset:0;pointer-events:none;background:url(../assets/img/opening-gate.webp) 50% 38%/cover no-repeat}
-@media (min-aspect-ratio:4/5){.op-bg{background-position:50% 30%}}
-.op-shade{position:absolute;inset:0;pointer-events:none;background:radial-gradient(85% 65% at 50% 48%,rgba(20,4,8,.12) 30%,rgba(20,4,8,.62))}
+/* behind the envelope: pink Hawa Mahal under a blue sky, lightly darkened round the edges so the envelope stands out;
+   wide screens show more of the sky, where "Welcome to Jaipur" sits */
+.op-bg{position:absolute;inset:0;pointer-events:none;background:url(../assets/img/opening-hawa-mahal.webp) 50% 55%/cover no-repeat}
+@media (min-aspect-ratio:4/5){.op-bg{background-position:50% 18%}}
+.op-shade{position:absolute;inset:0;pointer-events:none;background:radial-gradient(85% 65% at 50% 48%,rgba(20,4,8,.05) 30%,rgba(20,4,8,.5))}
+
+/* ---- "Welcome to Jaipur" in the sky above the envelope: gold script, then JAIPUR in raised 3D gold (a stack of darker
+   copies behind each letter), tilted back a little; js/opening.js sizes it to the space above the envelope ---- */
+.op-welcome{position:absolute;z-index:8;left:0;right:0;top:0;margin:0;display:flex;flex-direction:column;align-items:center;justify-content:center;
+ pointer-events:none;perspective:700px;text-align:center;transition:opacity .5s ease,transform .7s ease}
+.op-welcome.out{opacity:0;transform:translateY(-24px)}
+.ow-script{display:block;font:400 calc(var(--ws)*.42)/1 "Great Vibes",cursive;letter-spacing:.01em;
+ background:linear-gradient(180deg,#fffaf0 0%,#ffe9b8 55%,#f2c96e 100%);-webkit-background-clip:text;background-clip:text;color:transparent;
+ filter:drop-shadow(0 1px 0 #7a1530) drop-shadow(0 2px 0 #5c0f22) drop-shadow(0 4px 8px rgba(30,0,10,.55))}
+.ow-city{display:flex;gap:.04em;margin-top:calc(var(--ws)*-.04);transform:rotateX(14deg);transform-origin:50% 100%}
+.ow-city span{position:relative;display:inline-block;font:400 var(--ws)/1 "Rozha One",Georgia,serif;letter-spacing:.06em;text-transform:uppercase;color:#ffd36a;
+ background:linear-gradient(180deg,#fff6d0 0%,#ffd36a 42%,#f0a830 70%,#c97a1a 100%);-webkit-background-clip:text;background-clip:text;
+ animation:owin 1.1s cubic-bezier(.2,.8,.2,1) both;animation-delay:calc(var(--i)*.08s + .3s)}
+.ow-city span::before{content:attr(data-l);position:absolute;inset:0;z-index:-1;color:#7a1530;
+ text-shadow:0 1px 0 #8c1a36,1px 2px 0 #7a1530,1px 3px 0 #6b1428,2px 4px 0 #5c0f22,2px 5px 0 #4e0b1c,3px 6px 0 #400816,3px 8px 10px rgba(20,0,8,.6),0 0 22px rgba(255,200,120,.35)}
+.ow-rule{display:flex;align-items:center;gap:.5em;width:calc(var(--ws)*3.2);margin-top:calc(var(--ws)*.12)}
+.ow-rule i{flex:1;height:1.5px;background:linear-gradient(90deg,transparent,#f2c96e)}
+.ow-rule i:last-child{transform:scaleX(-1)}
+.ow-rule b{width:calc(var(--ws)*.13);height:calc(var(--ws)*.13);background:#f2c96e;transform:rotate(45deg);box-shadow:0 0 8px rgba(255,210,120,.8)}
+.ow-script,.ow-rule{animation:owfade 1s ease both .2s}
+@keyframes owin{from{opacity:0;transform:translateY(.35em) rotateX(-70deg)}to{opacity:1;transform:none}}
+@keyframes owfade{from{opacity:0;transform:translateY(-8px)}to{opacity:1;transform:none}}
+@media (prefers-reduced-motion:reduce){.ow-city span,.ow-script,.ow-rule{animation:none}}
 .op-ep{position:absolute;margin:0;will-change:transform,opacity}
 
 /* ---- the envelope: the inside (back), three folded flaps in front with soft seams, the top flap with lace ---- */
