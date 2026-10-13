@@ -1,0 +1,137 @@
+/* phone copy of css/end.css, made by scripts/build.js - do not edit */
+/* Page 7: closing page, the Wishing Wall */
+/* ===== last page: a gold rod divider, carved brackets with hanging diyas at both screen edges, a lit tower right inside
+   each bracket pillar, the gold arch springing from the towers, and the palace gateway between the towers at the foot.
+   Pillars, towers and palace all stand on the same ground line. Inside the frame: white swirl paper with the wishing wall ===== */
+.pg7{position:relative;z-index:3;overflow:hidden;container-type:inline-size;
+ --rodh:clamp(16px,2.4vw,34px);--br:clamp(88px,20vw,300px);--hp:clamp(8px,1.6vw,22px);--th:clamp(118px,12vw,172px);--tw:clamp(30px,5.4vw,80px);--top:calc(var(--rodh) + var(--hp) + var(--th));
+ /* tower centre (touching the inside of the bracket pillar); the arch is sized so its feet land on the towers */
+ --tc:calc(var(--br)*.067 + var(--tw)/2);--ins:calc((var(--tc) - 7.7cqw)/.846);--aw:calc(100cqw - var(--ins)*2);
+ min-height:100vh;min-height:100svh;background:#5c0f22 url(../../assets/img/burgundy-paisley.webp) 0 0/min(760px,100vw) auto repeat}
+.pg7::before{content:"";position:absolute;inset:0;pointer-events:none;background:radial-gradient(120% 75% at 50% 45%,transparent 40%,rgba(35,0,12,.55))}
+
+/* divider between the RSVP page and this one */
+.p7-rod{position:relative;z-index:6;height:var(--rodh);background:url(../../assets/img/rsvp-rod.webp) center/100% 100% no-repeat;filter:drop-shadow(0 6px 8px rgba(20,0,6,.55))}
+
+/* bracket pillars on both borders, from the rod down to the ground */
+.p7-br{position:absolute;z-index:3;top:var(--rodh);bottom:0;width:var(--br);pointer-events:none;filter:drop-shadow(0 8px 12px rgba(20,0,6,.5))}
+/* shifted out by the image's transparent margin, so the pillar touches the screen border */
+.p7-br.l{left:calc(var(--br)*-.046);transform:scaleX(-1)}
+.p7-br.r{right:calc(var(--br)*-.046)}
+.p7-br i{position:absolute;left:0;right:0;background:center/100% 100% no-repeat}
+.p7-br .bt{top:0;height:calc(var(--br)*1.0886);background-image:url(../../assets/img/m/diya-bracket-top.webp)}
+.p7-br .bs{top:calc(var(--br)*1.084);bottom:calc(var(--br)*.626);background-image:url(../../assets/img/diya-bracket-shaft.webp)}
+.p7-br .bb{bottom:0;height:calc(var(--br)*.63);background-image:url(../../assets/img/diya-bracket-base.webp)}
+/* the hanging diyas glow gently */
+@media (prefers-reduced-motion:no-preference){.p7-br .bt{animation:p7glow 3.2s ease-in-out infinite alternate}}
+@keyframes p7glow{from{filter:brightness(1)}to{filter:brightness(1.12) drop-shadow(0 0 10px rgba(255,190,90,.35))}}
+
+/* white swirl paper inside the frame: the arch's inner shape on top, then straight down between the towers */
+.p7-fill{position:absolute;z-index:0;left:var(--ins);width:var(--aw);top:var(--top);bottom:0;
+ background:#fffdf8 url(../../assets/img/gate-swirl-paper.webp) 0 0/min(460px,72vw) auto repeat;
+ -webkit-mask:url(../../assets/img/wish-arch-fill.png) 0 0/100% calc(var(--aw)*.405) no-repeat,linear-gradient(#000,#000) calc(var(--aw)*.07) calc(var(--aw)*.4)/calc(var(--aw)*.86) 100% no-repeat;
+ mask:url(../../assets/img/wish-arch-fill.png) 0 0/100% calc(var(--aw)*.405) no-repeat,linear-gradient(#000,#000) calc(var(--aw)*.07) calc(var(--aw)*.4)/calc(var(--aw)*.86) 100% no-repeat}
+
+/* the arch and the wishing wall inside it */
+.p7-hall{position:relative;z-index:1;padding-top:calc(var(--hp) + var(--th))}
+/* the title sits above the frame, between the brackets */
+.p7-head{position:absolute;z-index:5;left:0;right:0;top:var(--hp);height:var(--th);box-sizing:border-box;padding:0 calc(var(--br)*.5);display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center}
+.p7-head p{margin:0}
+.p7-arch{position:relative;z-index:2;margin:0 var(--ins);container-type:inline-size;min-height:calc(var(--aw)*.45)}
+.p7-frame{position:absolute;inset:0;pointer-events:none;filter:drop-shadow(0 6px 10px rgba(20,0,6,.45))}
+.p7-frame i{position:absolute;left:0;right:0;background:center/100% 100% no-repeat}
+.p7-frame .at{top:0;height:40.5cqw;background-image:url(../../assets/img/wish-arch-top.webp)}
+/* a lamp hangs in the arch's dome */
+.p7-lamp{position:absolute;z-index:1;left:50.33%;top:6.6cqw;width:6.6cqw;height:auto;transform:translateX(-50%);transform-origin:50% 0;filter:drop-shadow(0 0 18px rgba(255,190,90,.55));pointer-events:none}
+@media (prefers-reduced-motion:no-preference){.p7-lamp{animation:p7sway 4.5s ease-in-out infinite alternate}}
+@keyframes p7sway{from{transform:translateX(-50%) rotate(-2deg)}to{transform:translateX(-50%) rotate(2deg)}}
+.p7-in{position:relative;box-sizing:border-box;padding:29cqw 14.5cqw 1cqw;text-align:center;color:#5a3a30}
+.p7-in p{margin:0}
+/* towers: the cupola sits where the arch comes down; the storeys repeat down to the ground */
+.p7-tw{position:absolute;z-index:4;bottom:0;width:var(--tw);top:calc(var(--top) + var(--aw)*.352 - var(--tw)*.2);pointer-events:none;
+ filter:drop-shadow(0 0 14px rgba(255,190,90,.28)) drop-shadow(0 10px 14px rgba(20,0,6,.55))}
+.p7-tw.l{left:calc(var(--tc) - var(--tw)/2)}
+.p7-tw.r{right:calc(var(--tc) - var(--tw)/2);transform:scaleX(-1)}
+.p7-tw i{position:absolute;left:0;right:0}
+.p7-tw .tc{top:0;height:calc(var(--tw)*1.86);background:url(../../assets/img/tower-cap.webp) top center/100% 100% no-repeat}
+.p7-tw .ts{top:calc(var(--tw)*1.855);bottom:0;background:url(../../assets/img/tower-storey.webp) top center/100% calc(var(--tw)*1.129) repeat-y}
+
+/* titles */
+.p7-hi{font:400 clamp(16px,2.2vw,26px)/1.2 "Amita","Tiro Devanagari Hindi",serif;letter-spacing:.06em;color:#f2c96e}
+.p7-title{margin:.02em 0 0;font:400 clamp(30px,5vw,62px)/1.1 "Yatra One",Georgia,serif;
+ background:linear-gradient(180deg,#fff1c4,#f2c96e 45%,#c9952e);-webkit-background-clip:text;background-clip:text;color:transparent;
+ filter:drop-shadow(0 3px 6px rgba(20,0,6,.6))}
+.p7-sub{margin-top:.2em!important;font:italic 600 clamp(15px,1.8vw,22px)/1.3 "Cormorant Garamond",Georgia,serif;color:#f6e7c8}
+
+/* the wish cards (small) slide inside the frame */
+.wl{position:relative;margin:clamp(10px,1.8cqw,22px) auto 0}
+.wl-track{display:flex;gap:clamp(10px,1.4cqw,16px);overflow-x:auto;overscroll-behavior-x:contain;scroll-snap-type:x mandatory;padding:10px 7% 16px;
+ scrollbar-width:none;-webkit-mask-image:linear-gradient(90deg,transparent,#000 6%,#000 94%,transparent);mask-image:linear-gradient(90deg,transparent,#000 6%,#000 94%,transparent);outline:none}
+.wl-track::-webkit-scrollbar{display:none}
+.wc{position:relative;flex:0 0 clamp(168px,19cqw,215px);box-sizing:border-box;scroll-snap-align:center;display:flex;flex-direction:column;gap:.45em;
+ padding:clamp(16px,2cqw,20px) 14px 11px;border-radius:12px;text-align:left;color:#4a2a22;
+ background:radial-gradient(120% 90% at 0% 0%,#fffaf0,#fbecd0 70%,#f3dcb0);
+ box-shadow:inset 0 0 0 1.5px #c9a24d,inset 0 0 0 4px #fffaf0,inset 0 0 0 5px rgba(201,162,77,.5),0 6px 14px rgba(90,30,20,.2);
+ transition:transform .35s ease,box-shadow .35s ease}
+.wc::before{content:"\201C";position:absolute;top:-.1em;left:.16em;font:700 44px/1 Georgia,serif;color:#c9a24d;opacity:.55}
+.wc p{flex:1;position:relative;font:italic 600 clamp(14px,1.45cqw,16px)/1.4 "Cormorant Garamond",Georgia,serif;overflow-wrap:anywhere}
+.wc b{align-self:flex-end;max-width:100%;font:700 clamp(11px,1.15cqw,12.5px)/1.3 "Cinzel",Georgia,serif;letter-spacing:.07em;color:#7a1530;overflow-wrap:anywhere}
+.wc b::before{content:"— "}
+.wc.new{animation:wcnew 1.6s ease}
+@keyframes wcnew{0%{transform:scale(.85);opacity:0}40%{transform:scale(1.05);opacity:1;box-shadow:inset 0 0 0 1.5px #c9a24d,inset 0 0 0 4px #fffaf0,inset 0 0 0 5px rgba(201,162,77,.5),0 0 0 5px rgba(242,201,110,.55),0 6px 14px rgba(90,30,20,.2)}100%{transform:none}}
+.wl-nav{position:absolute;z-index:2;top:50%;width:clamp(28px,3.4cqw,36px);height:clamp(28px,3.4cqw,36px);margin-top:calc(clamp(28px,3.4cqw,36px)/-2);display:grid;place-items:center;
+ border:0;border-radius:50%;cursor:pointer;color:#5a0f20;background:radial-gradient(circle at 35% 30%,#fff1c4,#f2c96e 55%,#c9952e);box-shadow:0 3px 8px rgba(90,30,20,.35);
+ transition:transform .2s,opacity .2s;-webkit-tap-highlight-color:transparent}
+.wl-nav svg{width:15px;height:15px}
+.wl-nav.prev{left:-4px}
+.wl-nav.next{right:-4px}
+.wl-nav:hover,.wl-nav:focus-visible{transform:scale(1.08);outline:none}
+.wl-nav[disabled]{opacity:.35;cursor:default;transform:none}
+
+/* the form (small), with a heart to send */
+.wf{position:relative;isolation:isolate;box-sizing:border-box;max-width:420px;margin:clamp(12px,2cqw,22px) auto 0;padding:0 0 clamp(18px,3cqw,30px);text-align:left;color:#4a2a22}
+/* the lake palace, large, behind the form; its top fades so the fields stay clear */
+.wf::before{content:"";position:absolute;z-index:-1;left:50%;bottom:0;width:min(165%,72cqw);aspect-ratio:1080/535;transform:translateX(-50%);
+ background:url(../../assets/img/m/lake-palace.webp) center bottom/contain no-repeat;
+ -webkit-mask-image:linear-gradient(180deg,rgba(0,0,0,.25),#000 42%);mask-image:linear-gradient(180deg,rgba(0,0,0,.25),#000 42%)}
+.wf-h{text-shadow:0 0 6px #fffaf0,0 0 2px #fffaf0,0 0 12px #fffaf0;text-align:center;font:700 clamp(13px,1.6cqw,16px)/1.2 "Cinzel",Georgia,serif;letter-spacing:.16em;text-transform:uppercase;color:#7a1530;margin-bottom:.2em!important}
+.wf-f{display:block;margin-top:.5em}
+.wf-f span{text-shadow:0 0 5px #fffaf0,0 0 2px #fffaf0,0 0 10px #fffaf0;display:block;margin-bottom:.25em;font:700 10.5px/1.2 "Cinzel",Georgia,serif;letter-spacing:.12em;text-transform:uppercase;color:#a9761f}
+.wf-f input,.wf-f textarea{box-shadow:0 4px 12px rgba(90,30,20,.12);box-sizing:border-box;width:100%;display:block;padding:.4em .7em;border:1.5px solid #dcbc78;border-radius:9px;background:#fffdf8;color:#3a1e18;
+ font:600 16px/1.35 "Cormorant Garamond",Georgia,serif;transition:border-color .2s,box-shadow .2s;-webkit-appearance:none;appearance:none}
+.wf-f textarea{resize:vertical;min-height:3.6em}
+.wf-f input::placeholder,.wf-f textarea::placeholder{color:#b49a86;font-style:italic}
+.wf-f input:focus,.wf-f textarea:focus{outline:none;border-color:#c9952e;box-shadow:0 0 0 3px rgba(242,201,110,.45)}
+.wf-f.err input,.wf-f.err textarea{border-color:#b3263e;box-shadow:0 0 0 3px rgba(179,38,62,.18)}
+.wf-btn{position:relative;display:block;width:clamp(74px,8cqw,88px);aspect-ratio:100/92;margin:.6em auto 0;padding:0;border:0;background:none;cursor:pointer;
+ filter:drop-shadow(0 5px 8px rgba(90,15,32,.35));transition:transform .25s;-webkit-tap-highlight-color:transparent}
+.wf-btn svg{display:block;width:100%;height:100%;overflow:visible}
+.wf-btn span{position:absolute;inset:0 0 14% 0;display:grid;place-items:center;font:700 clamp(13px,1.5cqw,15px)/1 "Cinzel",Georgia,serif;letter-spacing:.08em;color:#fff1c4;text-shadow:0 1px 2px rgba(40,0,10,.5)}
+.wf-btn:hover,.wf-btn:focus-visible{outline:none;animation:p7beat 1s ease-in-out infinite}
+.wf-btn:active{transform:scale(.92)}
+.wf-btn.sent{animation:p7beat .9s ease-in-out}
+.wf-puff{position:absolute;left:50%;top:40%;width:12px;height:11px;margin:-6px 0 0 -6px;pointer-events:none;opacity:0;
+ background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 30'%3E%3Cpath d='M16 29C6 21 1 15.5 1 9.2 1 4.7 4.6 1 9 1c3 0 5.4 1.7 7 4.3C17.6 2.7 20 1 23 1c4.4 0 8 3.7 8 8.2C31 15.5 26 21 16 29z' fill='%23e8476a'/%3E%3C/svg%3E") center/contain no-repeat;
+ animation:p7puff 1.3s cubic-bezier(.2,.7,.3,1) var(--dl) forwards}
+.wf-puff.g{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 30'%3E%3Cpath d='M16 29C6 21 1 15.5 1 9.2 1 4.7 4.6 1 9 1c3 0 5.4 1.7 7 4.3C17.6 2.7 20 1 23 1c4.4 0 8 3.7 8 8.2C31 15.5 26 21 16 29z' fill='none' stroke='%23d9a441' stroke-width='3'/%3E%3C/svg%3E")}
+@keyframes p7puff{0%{transform:translate(0,0) scale(.3);opacity:0}20%{opacity:1}100%{transform:translate(var(--tx),var(--ty)) scale(1.1) rotate(12deg);opacity:0}}
+@keyframes p7beat{0%,100%{transform:scale(1)}15%{transform:scale(1.12)}30%{transform:scale(1)}45%{transform:scale(1.08)}}
+.wf-msg{text-shadow:0 0 5px #fffaf0,0 0 2px #fffaf0,0 0 10px #fffaf0;margin-top:.3em!important;text-align:center;font:italic 600 14px/1.3 "Cormorant Garamond",Georgia,serif;color:#2e7d43}
+.wf-msg.bad{color:#b3263e}
+
+/* the palace gateway between the towers, on the same ground as pillars and towers */
+.p7-base{position:relative;z-index:2;margin-top:clamp(6px,1.2vw,16px);padding:0 var(--tc)}
+.p7-palace{display:block;width:100%;height:auto;filter:drop-shadow(0 -4px 10px rgba(90,30,20,.25))}
+
+/* phones: content starts lower (the arch's dome is narrow) and one card fills the frame */
+@media (max-width:600px){
+ .p7-head{padding:0 calc(var(--br)*.62)}
+ .p7-in{padding:31cqw 14cqw 2cqw}
+ .p7-lamp{width:8cqw}
+ .wc{flex-basis:74%}
+ .wl-track{padding:8px 9% 14px}
+}
+@media (prefers-reduced-motion:reduce){.wc,.wc.new,.wl-nav,.wf-btn,.wf-btn:hover{animation:none;transition:none}}
+
+/* portrait screens: no full-screen minimum height, the gateway stands right on the next page's divider */
+@media (orientation:portrait) and (max-width:1100px){.pg7{min-height:0}}

@@ -70,6 +70,8 @@
 .pg5,.pgc{clip-path:none;background:transparent}
 body::before{content:"";position:fixed;z-index:-1;left:0;top:0;width:100%;height:100vh;height:100lvh;pointer-events:none;
  background:#5c0f22 url(../assets/img/burgundy-paisley.webp) 0 0/min(760px,100vw) auto repeat}
+/* ... loaded only once those pages come near (js/perf.js adds .bg-near) */
+html:not(.bg-near) body::before{background-image:none}
 .pgc{overflow-x:hidden}
 @supports (overflow:clip){.pgc{overflow:visible;overflow-x:clip}}
 .rw-plane{will-change:transform}
@@ -106,3 +108,44 @@ body::before{content:"";position:fixed;z-index:-1;left:0;top:0;width:100%;height
 
 .rq-place.flat .en{font-size:clamp(70px,24vw,108px)}
 .rq-place.raised .en{font-size:clamp(52px,17vw,84px)}
+
+/* ---- performance (phones) ---- */
+/* pages further down: their background pictures load only shortly before the page comes into view (js/perf.js) */
+.lz,.lz *,.lz *::before,.lz *::after{background-image:none!important}
+/* page 1 after the opening (js/hero.js): Hawa Mahal and the scroll cue scroll with the page itself; the trees stay
+   pinned on a second layer in front (the same order as before: sky and names, then the building, then the trees) */
+.track.native{overflow-x:clip}
+.hero-fly{position:absolute;z-index:2;left:0;right:0;top:0;height:0;pointer-events:none}
+.hero-fly img{max-width:none;position:absolute;display:block;user-select:none;-webkit-user-drag:none;pointer-events:none}
+.hero-front{position:sticky;z-index:3;top:0;overflow:hidden;pointer-events:none}
+.hero-front img{max-width:none;position:absolute;display:block;user-select:none;-webkit-user-drag:none;pointer-events:none;will-change:transform}
+/* page 1: the header's sizes known from the start (the same values js/hero.js sets), so nothing jumps when it loads */
+.stage{--hw:max(160vw,94lvh);--har:.8211;height:100lvh}
+/* swaying plants: the sway is the "rotate" property instead of an animated custom property, so the phone's graphics
+   chip runs it instead of recalculating the page's styles every frame (same movement) */
+.p5-plant{transform:scale(var(--pl-s,.92))}
+.p5-plant.grown{animation:p5rot 4.5s ease-in-out infinite alternate}
+.p5-plant.r.grown{animation-delay:-2.2s}
+@keyframes p5rot{from{rotate:-1.2deg}to{rotate:1.2deg}}
+.rq-lotus{transform:scale(var(--ls,.92))}
+.rq-lotus.grown{animation:rqrot 4.5s ease-in-out infinite alternate}
+.rq-lotus.r.grown{animation-delay:-2.2s}
+@keyframes rqrot{from{rotate:-1.4deg}to{rotate:1.4deg}}
+/* the family-page lantern's animation changes nothing visible (it animates an unused value); stop it */
+.p5-lan{animation:none}
+/* the hanging diyas' glow: a soft light that fades in and out instead of an animated filter on the whole picture */
+.p7-br .bt{animation:none!important}
+.p7-br .bt::after{content:"";position:absolute;left:10%;right:10%;bottom:-4%;height:42%;border-radius:50%;pointer-events:none;
+ background:radial-gradient(closest-side,rgba(255,200,110,.45),rgba(255,170,60,.15) 60%,transparent);opacity:0;animation:p7lit 3.2s ease-in-out infinite alternate}
+@keyframes p7lit{to{opacity:1}}
+@media (prefers-reduced-motion:reduce){.p7-br .bt::after{animation:none}}
+/* falling petals on the Patrika Gate page: 4 of the 12 on phones (PERF.cfg.petals) */
+.p4-petal:nth-child(n+5){display:none}
+/* lite tier (slow phones, js/perf.js): fewer petals, no bobbing on the road vehicles, no pulsing ring on the RSVP button */
+.lite .p4-petal:nth-child(n+3){display:none}
+.lite .bobbing{animation:none}
+.lite .p6-btn::after{animation:none;opacity:0}
+/* while the envelope opening plays, the pages under it (all hidden behind it except page 1, which takes over at the end)
+   are not drawn and their animations wait */
+.op-on body>*:not(.op):not(#track){visibility:hidden}
+.op-on body>*:not(.op),.op-on body>*:not(.op) *,.op-on body>*:not(.op) *::before,.op-on body>*:not(.op) *::after{animation-play-state:paused!important}

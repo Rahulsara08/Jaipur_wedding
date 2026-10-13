@@ -1,0 +1,23 @@
+/* phone copy of css/common.css, made by scripts/build.js - do not edit */
+/* Shared helpers (scroll reveal) */
+.rv{opacity:0;transform:translateY(34px);transition:opacity .8s ease,transform .8s cubic-bezier(.2,.7,.2,1)}
+.rv.in{opacity:1;transform:none}
+@media (prefers-reduced-motion:reduce){.rv{opacity:1;transform:none;transition:none}}
+/* place names (Hawa Mahal, Amer Fort): spaced capitals set straight on the page */
+.place-name{margin:0;display:flex;flex-direction:column;align-items:center;gap:.12em;white-space:nowrap;pointer-events:none;text-align:center}
+.place-name .pn-en{padding-left:.3em;font:700 clamp(15px,2.3vw,29px)/1.05 "Cinzel",Georgia,serif;letter-spacing:.3em;text-transform:uppercase}
+.place-name.on-dark .pn-en{background:linear-gradient(180deg,#fff2c6,#f2c96e 50%,#c9952e);-webkit-background-clip:text;background-clip:text;color:transparent;
+ filter:drop-shadow(0 0 3px rgba(40,0,10,.95)) drop-shadow(0 2px 4px rgba(40,0,10,.8))}
+.place-name.on-light .pn-en{color:#7a1530;text-shadow:0 1px 0 rgba(242,201,110,.55)}
+/* a plain line under each place name (part of the name, so it fades in with it) */
+.place-name .pn-en::after{content:"";display:block;height:1.5px;margin-top:.4em;margin-left:-.3em;background:#e9c46a}
+.place-name.on-dark .pn-en::after{background:linear-gradient(90deg,#c9952e,#f2c96e 50%,#c9952e)}
+.place-name.on-light .pn-en::after{background:#a9761f}
+/* a background that stays still on screen while its page scrolls over it (works on phones too, unlike
+   background-attachment:fixed): the page clips it (clip-path), the layer itself is fixed to the screen */
+.bg-fix{position:fixed;z-index:-1;left:0;top:0;width:100%;height:100vh;height:100lvh;pointer-events:none;
+ background:#5c0f22 url(../../assets/img/burgundy-paisley.webp) 0 0/min(760px,100vw) auto repeat}
+/* decorations shown only on phones (css/mobile.css places them) */
+.m-only{display:none}
+/* a page that is well off screen sleeps: its looping animations pause until it comes back (js/perf.js) */
+.zz,.zz *,.zz *::before,.zz *::after{animation-play-state:paused!important}

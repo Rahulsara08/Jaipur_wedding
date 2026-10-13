@@ -79,7 +79,7 @@
         lotus.forEach(function(l){l.style.setProperty('--reveal',(6+104*k).toFixed(1));l.style.setProperty('--ls',(.92+.08*k).toFixed(3));l.classList.toggle('grown',k>=.999)})}}
     if(cur!==t)requestAnimationFrame(update);else ticking=false;
   }
-  function kick(){if(!ticking){ticking=true;lastT=performance.now();requestAnimationFrame(update)}}
+  function kick(){if(window.PERF&&!PERF.near('pgc')&&cur===target())return;if(!ticking){ticking=true;lastT=performance.now();requestAnimationFrame(update)}}
   addEventListener('scroll',kick,{passive:true});
   var rt=0;addEventListener('resize',function(){clearTimeout(rt);rt=setTimeout(measure,120)});
   addEventListener('load',measure);

@@ -1,0 +1,162 @@
+/* phone copy of css/events.css, made by scripts/build.js - do not edit */
+/* Page 3: events wall and ceremony cards */
+/* ---- page 3: full palace wall flush under the pillars; skyline fades in on top of it; garland hangs across the seam.
+   Everything sits behind the gate so the pillar bottoms overlap all of it ---- */
+.wall{position:relative;z-index:auto;display:block;width:100%;height:auto;line-height:0;background:transparent;margin-top:0;overflow-x:clip}
+.wall .wallimg{position:absolute;left:0;top:0;width:100%;height:100%;object-fit:cover;object-position:50% 0;max-width:none;-webkit-mask-image:linear-gradient(to bottom,transparent 0,#000 clamp(10px,3vw,30px));mask-image:linear-gradient(to bottom,transparent 0,#000 clamp(10px,3vw,30px))}
+.wall .skyline{position:absolute;left:-12.5%;top:0;width:125%;height:auto;max-width:none;transform:translateY(-101%);opacity:1;pointer-events:none;user-select:none;-webkit-user-drag:none;-webkit-mask-image:linear-gradient(to bottom,#000 0,#000 78%,transparent 100%);mask-image:linear-gradient(to bottom,#000 0,#000 78%,transparent 100%)}
+.wall .mala{position:absolute;left:-2%;top:0;width:104%;height:auto;max-width:none;transform:translateY(-20%);pointer-events:none;user-select:none;-webkit-user-drag:none;filter:drop-shadow(0 4px 6px rgba(90,40,20,.18))}
+.wall .fbed{position:absolute;z-index:3;left:0;top:0;width:100%;height:0;pointer-events:none}
+.wall .fbed{--fl:url(../../assets/img/m/flower-bed.webp)}
+.wall .fbed::before,.wall .fbed::after{content:"";position:absolute;top:0;width:34%;aspect-ratio:1279/426;background:var(--fl) center/100% 100% no-repeat;-webkit-mask-image:linear-gradient(to right,#000 0,#000 45%,transparent 100%);mask-image:linear-gradient(to right,#000 0,#000 45%,transparent 100%);filter:drop-shadow(0 2px 3px rgba(80,35,20,.22))}
+.wall .fbed::before{left:-3%;transform:translateY(-84%)}
+.wall .fbed::after{right:-3%;transform:translateY(-84%) scaleX(-1)}
+/* ---- events carousel: one card per ceremony, swipe / drag / auto-advance, no buttons ---- */
+.events{--ev-w:min(86vw,760px);--ev-gold:#a9761f;position:relative;z-index:2;padding:21vw 0 11vw;line-height:1.35;font-family:"Cormorant Garamond",Georgia,serif;color:var(--txt);text-align:left}
+/* events: one card-sized frame; every event card sits inside it, stacked, and they change with a fade (no sliding) */
+/* the frame is a rectangle cut a little larger than the card, recessed into the wall, so the card reads as set inside it */
+.ev-track{--ev-pad:clamp(10px,2.4vw,22px);position:relative;display:grid;width:calc(var(--ev-w) + var(--ev-pad)*2);max-width:calc(100% - 16px);margin:0 auto;padding:var(--ev-pad);overflow:hidden;box-sizing:border-box;
+ background:linear-gradient(180deg,rgba(255,247,228,.9),rgba(250,236,204,.9));border:1.5px solid #c9a24d;border-radius:6px;
+ box-shadow:inset 0 0 0 4px rgba(255,251,240,.75),inset 0 0 0 5px rgba(185,138,53,.45),inset 0 8px 22px rgba(107,31,42,.22),0 12px 30px rgba(107,31,42,.22);outline:none;touch-action:pan-y;user-select:none;-webkit-user-select:none;cursor:grab}
+.ev-track.drag{cursor:grabbing}
+.ev-track:focus-visible{box-shadow:inset 0 0 0 2px var(--ev-gold)}
+.ev-slide{grid-area:1/1;min-width:0;opacity:0;visibility:hidden;transition:opacity .6s ease,visibility 0s linear .6s}
+.ev-slide.is-on{opacity:1;visibility:visible;transition:opacity .6s ease,visibility 0s}
+.ev-card{position:relative;display:grid;grid-template-columns:minmax(0,38%) minmax(0,1fr);gap:clamp(12px,3vw,30px);align-items:center;padding:clamp(12px,2.6vw,24px);border-radius:clamp(18px,3.2vw,28px);border:1.5px solid #c9a24d;
+ background:
+  radial-gradient(circle,#b98a35 0 2.2px,transparent 2.9px) left 8px top 8px/9px 9px no-repeat,
+  radial-gradient(circle,#b98a35 0 2.2px,transparent 2.9px) right 8px top 8px/9px 9px no-repeat,
+  radial-gradient(circle,#b98a35 0 2.2px,transparent 2.9px) left 8px bottom 8px/9px 9px no-repeat,
+  radial-gradient(circle,#b98a35 0 2.2px,transparent 2.9px) right 8px bottom 8px/9px 9px no-repeat,
+  linear-gradient(160deg,#fffdf6,#fbf0da);
+ box-shadow:inset 0 0 0 5px #fffaf0,inset 0 0 0 6px rgba(185,138,53,.45),0 14px 34px rgba(107,31,42,.22);
+}
+.ev-dots{display:flex;justify-content:center;gap:10px;width:max-content;margin:8px auto 0;padding:7px 13px;border-radius:999px;background:rgba(255,250,236,.92);border:1px solid rgba(201,162,77,.55);box-shadow:0 4px 12px rgba(107,31,42,.18)}
+.ev-dots button{width:9px;height:9px;padding:0;border:0;border-radius:50%;background:#c9a24d;opacity:.4;cursor:pointer;transition:opacity .3s,transform .3s}
+.ev-dots button[aria-current="true"]{opacity:1;background:#6b1f2a;transform:scale(1.25)}
+.ev-art{aspect-ratio:3/4;border-radius:14px;overflow:hidden;border:1px solid rgba(169,118,31,.6);box-shadow:inset 0 0 0 3px rgba(255,250,240,.65)}
+.ev-art svg{display:block;width:100%;height:100%;pointer-events:none}
+.ev-body{display:flex;flex-direction:column;gap:.32rem;min-width:0;padding-right:clamp(4px,1.4vw,12px)}
+.ev-day{font-size:clamp(.66rem,2vw,.8rem);font-weight:600;letter-spacing:.24em;text-transform:uppercase;color:var(--ev-gold)}
+.ev-title{margin:0;font-family:"Great Vibes","Yatra One",cursive;font-weight:400;font-size:clamp(2.5rem,10.5vw,4.4rem);line-height:.95;color:var(--txt);padding-bottom:.04em}
+.ev-hi{font-family:"Tiro Devanagari Hindi",Georgia,serif;font-size:clamp(.8rem,2.4vw,1rem);color:var(--ev-gold);letter-spacing:.06em}
+.ev-meta{list-style:none;margin:.3rem 0 0;padding:0;display:flex;flex-direction:column;gap:.26rem;font-size:clamp(.84rem,2.7vw,1.08rem);font-weight:600;color:var(--sub)}
+.ev-meta li{display:flex;align-items:flex-start;gap:.45rem}
+.ev-meta svg{flex:none;margin-top:.18em;color:var(--ev-gold)}
+.ev-note{margin:.35rem 0 0;font-style:italic;font-weight:500;font-size:clamp(.92rem,3vw,1.2rem);color:var(--sub);line-height:1.3}
+/* ---- event themes: each ceremony has its own colours; the frame behind the card takes the colour of the event shown ---- */
+.ev-haldi{--d:#a86a00;--m:#e8a317;--l:#fff4cc;--l2:#ffe08a}
+.ev-mehndi{--d:#2f6b2f;--m:#5e9e3e;--l:#f1f8e2;--l2:#cfe6a8}
+.ev-sangeet{--d:#7a2a6a;--m:#c0559f;--l:#fdf0f8;--l2:#f2c6e2}
+.ev-phere{--d:#a8241c;--m:#e2602a;--l:#fff1e6;--l2:#ffc9a3}
+.ev-reception{--d:#6b1f2a;--m:#b8862e;--l:#fff8ea;--l2:#f2d9a6}
+.ev-track{background:var(--fd,#6b1f2a) url(data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20width%3D%2244%22%20height%3D%2244%22%20viewBox%3D%220%200%2044%2044%22%3E%3Cg%20fill%3D%22none%22%20stroke%3D%22%23fff%22%20stroke-opacity%3D%22.16%22%20stroke-width%3D%221.4%22%3E%3Cpath%20d%3D%22M22%204c5%206%205%2012%200%2018c-5-6-5-12%200-18zM22%2040c5-6%205-12%200-18c-5%206-5%2012%200%2018zM4%2022c6-5%2012-5%2018%200c-6%205-12%205-18%200zM40%2022c-6-5-12-5-18%200c6%205%2012%205%2018%200z%22/%3E%3Ccircle%20cx%3D%2222%22%20cy%3D%2222%22%20r%3D%223%22/%3E%3Ccircle%20cx%3D%220%22%20cy%3D%220%22%20r%3D%225%22/%3E%3Ccircle%20cx%3D%2244%22%20cy%3D%220%22%20r%3D%225%22/%3E%3Ccircle%20cx%3D%220%22%20cy%3D%2244%22%20r%3D%225%22/%3E%3Ccircle%20cx%3D%2244%22%20cy%3D%2244%22%20r%3D%225%22/%3E%3C/g%3E%3C/svg%3E) 0 0/44px 44px!important;border:2px solid #e2b04f!important;border-radius:16px!important;
+ box-shadow:inset 0 0 0 5px rgba(0,0,0,.18),inset 0 0 0 6.5px rgba(242,201,110,.7),inset 0 10px 26px rgba(0,0,0,.35),0 16px 34px rgba(60,10,20,.35)!important;transition:background-color .6s ease}
+.ev-track[data-on="haldi"]{--fd:#b07a12}
+.ev-track[data-on="mehndi"]{--fd:#2f6b2f}
+.ev-track[data-on="sangeet"]{--fd:#6e2a63}
+.ev-track[data-on="phere"]{--fd:#9c2318}
+.ev-track[data-on="reception"]{--fd:#6b1f2a}
+.ev-slide .ev-card{border:2px solid #c9a24d;border-radius:clamp(16px,3vw,26px);
+ background:url(data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%22-50%20-50%20100%20100%22%3E%3Cg%20fill%3D%22none%22%20stroke%3D%22%23b8862e%22%20stroke-opacity%3D%22.16%22%20stroke-width%3D%22.8%22%3E%3Cellipse%20rx%3D%229%22%20ry%3D%2230%22%20transform%3D%22rotate%280%29%22/%3E%3Cellipse%20rx%3D%229%22%20ry%3D%2230%22%20transform%3D%22rotate%2815%29%22/%3E%3Cellipse%20rx%3D%229%22%20ry%3D%2230%22%20transform%3D%22rotate%2830%29%22/%3E%3Cellipse%20rx%3D%229%22%20ry%3D%2230%22%20transform%3D%22rotate%2845%29%22/%3E%3Cellipse%20rx%3D%229%22%20ry%3D%2230%22%20transform%3D%22rotate%2860%29%22/%3E%3Cellipse%20rx%3D%229%22%20ry%3D%2230%22%20transform%3D%22rotate%2875%29%22/%3E%3Cellipse%20rx%3D%229%22%20ry%3D%2230%22%20transform%3D%22rotate%2890%29%22/%3E%3Cellipse%20rx%3D%229%22%20ry%3D%2230%22%20transform%3D%22rotate%28105%29%22/%3E%3Cellipse%20rx%3D%229%22%20ry%3D%2230%22%20transform%3D%22rotate%28120%29%22/%3E%3Cellipse%20rx%3D%229%22%20ry%3D%2230%22%20transform%3D%22rotate%28135%29%22/%3E%3Cellipse%20rx%3D%229%22%20ry%3D%2230%22%20transform%3D%22rotate%28150%29%22/%3E%3Cellipse%20rx%3D%229%22%20ry%3D%2230%22%20transform%3D%22rotate%28165%29%22/%3E%3Ccircle%20r%3D%2244%22/%3E%3Ccircle%20r%3D%2240%22%20stroke-dasharray%3D%222%203%22/%3E%3Ccircle%20r%3D%2212%22/%3E%3Ccircle%20r%3D%226%22/%3E%3C/g%3E%3C/svg%3E) right -8% bottom -22%/min(42%,300px) auto no-repeat,radial-gradient(130% 120% at 0% 0%,var(--l) 0%,#fffdf7 55%,var(--l2) 140%);
+ box-shadow:inset 0 0 0 5px rgba(255,255,255,.7),inset 0 0 0 6.5px color-mix(in srgb,var(--m) 55%,transparent),0 12px 26px rgba(0,0,0,.28)}
+.ev-slide .ev-card::before,.ev-slide .ev-card::after{content:"";position:absolute;width:clamp(26px,5vw,44px);height:clamp(26px,5vw,44px);border:2px solid var(--m);pointer-events:none}
+.ev-slide .ev-card::before{top:10px;left:10px;border-right:0;border-bottom:0;border-radius:12px 0 0 0}
+.ev-slide .ev-card::after{right:10px;bottom:10px;border-left:0;border-top:0;border-radius:0 0 12px 0}
+.ev-slide .ev-art{border:2px solid var(--m);box-shadow:0 6px 14px rgba(0,0,0,.18),inset 0 0 0 3px rgba(255,255,255,.7)}
+.ev-slide .ev-day{align-self:flex-start;padding:.3em .9em;border-radius:99px;background:var(--d);color:#fff8e6;letter-spacing:.2em}
+.ev-slide .ev-title{color:var(--d)}
+.ev-slide .ev-hi,.ev-slide .ev-meta svg{color:var(--m)}
+.ev-slide .ev-meta{color:#4a3a34}
+/* venue text is the map link: tap it to open Google Maps */
+.ev-meta .ev-venue{display:block}
+.ev-map{display:inline-flex;align-items:center;gap:inherit;max-width:100%;color:var(--d);font-weight:700;text-decoration:underline;text-decoration-color:color-mix(in srgb,var(--m) 60%,transparent);
+ text-decoration-thickness:1.5px;text-underline-offset:3px;border-radius:6px;padding:2px 4px;margin:-2px -4px;transition:background .2s,color .2s;-webkit-tap-highlight-color:transparent;cursor:pointer}
+.ev-map span{min-width:0}
+.ev-map .ev-ext{display:inline-block;vertical-align:-.05em;width:.8em;height:.8em;margin-left:.3em;opacity:.75}
+.ev-map:hover,.ev-map:focus-visible{background:color-mix(in srgb,var(--m) 16%,transparent);outline:none;text-decoration-color:var(--d)}
+.ev-map:active{background:color-mix(in srgb,var(--m) 26%,transparent)}
+@media (max-width:420px){.ev-card{grid-template-columns:minmax(0,36%) minmax(0,1fr);gap:10px;padding:11px}
+.ev-title{font-size:2.35rem}
+.ev-meta{font-size:.8rem}
+.ev-note{font-size:.88rem}}
+@media (prefers-reduced-motion:reduce){.ev-slide,.ev-slide.is-on,.ev-dots button{transition:none}}
+
+/* ===== illustrated cards: the couple's illustration stands in a gold jharokha (arch) frame glowing in the event's
+   colour; when a card comes in, the picture rises softly into the frame, a gold shimmer sweeps across and the
+   details fade in one after another ===== */
+.ev-slide .ev-art{position:relative;aspect-ratio:3/4.15;border-radius:50% 50% 14px 14px/26% 26% 14px 14px;border:2px solid #c9a24d;
+ background:radial-gradient(70% 55% at 50% 58%,#fffdf6 0%,var(--l) 45%,var(--l2) 100%);
+ box-shadow:0 10px 22px rgba(0,0,0,.22),inset 0 0 0 4px rgba(255,250,240,.85),inset 0 0 0 5.5px color-mix(in srgb,var(--m) 60%,transparent),inset 0 -30px 40px -20px color-mix(in srgb,var(--m) 35%,transparent)}
+/* a fine inner arch line and a small kalash finial on top */
+.ev-slide .ev-art::before{content:"";position:absolute;z-index:2;inset:9px;border-radius:inherit;border:1px solid color-mix(in srgb,var(--m) 45%,transparent);pointer-events:none}
+.ev-slide .ev-art::after{content:"";position:absolute;z-index:3;inset:0;pointer-events:none;border-radius:inherit;
+ background:linear-gradient(115deg,transparent 35%,rgba(255,240,200,.55) 48%,rgba(255,255,255,.75) 50%,rgba(255,240,200,.5) 52%,transparent 65%) -150% 0/250% 100% no-repeat}
+.ev-slide.is-on .ev-art::after{animation:evshine 1.4s ease .55s both}
+@keyframes evshine{from{background-position:-150% 0}to{background-position:250% 0}}
+.ev-pic{position:absolute;z-index:1;left:6%;right:6%;bottom:3%;width:88%;height:84%;object-fit:contain;object-position:50% 100%;
+ filter:drop-shadow(0 8px 10px rgba(60,20,10,.28));transform-origin:50% 100%}
+.ev-slide.is-on .ev-pic{animation:evrise .95s cubic-bezier(.215,.61,.355,1) both,evbreath 6s ease-in-out 1s infinite alternate}
+@keyframes evrise{from{opacity:0;transform:translateY(14%) scale(.94)}to{opacity:1;transform:none}}
+@keyframes evbreath{from{transform:scale(1)}to{transform:scale(1.025)}}
+.ev-slide.is-on .ev-body>*{animation:evtxt .6s ease both}
+.ev-slide.is-on .ev-body>:nth-child(1){animation-delay:.25s}.ev-slide.is-on .ev-body>:nth-child(2){animation-delay:.35s}
+.ev-slide.is-on .ev-body>:nth-child(3){animation-delay:.45s}.ev-slide.is-on .ev-body>:nth-child(4){animation-delay:.55s}
+.ev-slide.is-on .ev-body>:nth-child(5){animation-delay:.65s}
+@keyframes evtxt{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+@media (prefers-reduced-motion:reduce){.ev-slide.is-on .ev-pic,.ev-slide.is-on .ev-art::after,.ev-slide.is-on .ev-body>*{animation:none}}
+
+/* ===== the gold frame hung on the wall: the coloured panel and card backgrounds are gone, so the palace wall shows;
+   the frame casts a soft shadow on the wall; inside it a cream mat, tinted in the event's colour, sits recessed, and
+   the illustration and details stand on it as raised layers. The frame is three pieces (top, a band of the side
+   rosettes, bottom); when the details need more height (phones) the band repeats instead of stretching. ===== */
+.events{--fw:min(94vw,740px,80vh)}
+.ev-track{width:var(--fw)!important;max-width:none!important;overflow:visible!important;background:none!important;border:0!important;border-radius:0!important;
+ box-shadow:none!important;box-sizing:border-box;padding:calc(var(--fw)*.262) calc(var(--fw)*.115) calc(var(--fw)*.225)!important;
+ min-height:calc(var(--fw)*1222/1216);align-content:center;transition:none}
+.ev-track:focus-visible{outline:2px solid #c9952e;outline-offset:-30px}
+/* the paper inside the frame: the white swirl paper, lightly washed with the event's colour, filling the frame's whole
+   inner shape right up to (and under) its gold edge. Three pieces, each masked to match a frame piece; the middle one
+   repeats with the frame's middle band when the frame grows */
+.ef-mat{position:absolute;z-index:0;inset:0;pointer-events:none}
+.ef-mat b{position:absolute;left:0;right:0;transition:background-color .6s ease;
+ background:linear-gradient(var(--mw,rgba(255,240,210,.3)),var(--mw,rgba(255,240,210,.3))),#fffdf8 url(../../assets/img/gate-swirl-paper.webp) 0 0/min(420px,60vw) auto repeat}
+.ef-mat .mt{top:0;height:calc(var(--fw)*.4309);-webkit-mask:url(../../assets/img/ev-frame-mask-t.png) 0 0/100% 100% no-repeat;mask:url(../../assets/img/ev-frame-mask-t.png) 0 0/100% 100% no-repeat}
+.ef-mat .mm{top:calc(var(--fw)*.4301);bottom:calc(var(--fw)*.3742);background-position:0 calc(var(--fw)*-.4301);
+ -webkit-mask:url(../../assets/img/ev-frame-mask-m.png) 0 0/100% auto;mask:url(../../assets/img/ev-frame-mask-m.png) 0 0/100% auto;-webkit-mask-repeat:no-repeat round;mask-repeat:no-repeat round}
+.ef-mat .mb{bottom:0;height:calc(var(--fw)*.375);-webkit-mask:url(../../assets/img/ev-frame-mask-b.png) 0 0/100% 100% no-repeat;mask:url(../../assets/img/ev-frame-mask-b.png) 0 0/100% 100% no-repeat}
+.ev-track[data-on="haldi"]{--ml:#fff4cc;--ml2:#ffd76a;--mw:rgba(255,236,170,.32)}
+.ev-track[data-on="mehndi"]{--ml:#f1f8e2;--ml2:#c4e09a;--mw:rgba(214,236,184,.3)}
+.ev-track[data-on="sangeet"]{--ml:#fdf0f8;--ml2:#eebbdc;--mw:rgba(246,214,236,.3)}
+.ev-track[data-on="phere"]{--ml:#fff1e6;--ml2:#ffbf94;--mw:rgba(255,220,196,.3)}
+.ev-track[data-on="reception"]{--ml:#fff8ea;--ml2:#eed09a;--mw:rgba(246,230,196,.3)}
+/* the frame on top, casting its shadow onto the wall */
+.ef{position:absolute;z-index:3;inset:0;pointer-events:none;filter:drop-shadow(10px 18px 14px rgba(60,25,5,.42)) drop-shadow(0 2px 2px rgba(60,25,5,.35))}
+.ef b{position:absolute;left:0;right:0;background:center top/100% 100% no-repeat}
+.ef .ef-t{top:0;height:calc(var(--fw)*.4309);background-image:url(../../assets/img/ev-frame-t.webp)}
+.ef .ef-m{top:calc(var(--fw)*.4301);bottom:calc(var(--fw)*.3742);background:url(../../assets/img/ev-frame-m.webp) center top/100% auto;background-repeat:no-repeat round}
+.ef .ef-b{bottom:0;height:calc(var(--fw)*.375);background-image:url(../../assets/img/ev-frame-b.webp)}
+/* the details on the mat: no card any more, just raised layers */
+.ev-slide{position:relative;z-index:1}
+.ev-slide .ev-card{background:none!important;border:0!important;box-shadow:none!important;padding:0!important;border-radius:0!important}
+.ev-slide .ev-card::before,.ev-slide .ev-card::after{display:none!important}
+.ev-slide .ev-art{box-shadow:0 14px 22px rgba(80,35,5,.32),0 3px 6px rgba(80,35,5,.25),inset 0 0 0 4px rgba(255,250,240,.85),inset 0 0 0 5.5px color-mix(in srgb,var(--m) 60%,transparent)!important}
+.ev-slide .ev-title{text-shadow:0 1px 0 rgba(255,255,255,.8),0 4px 8px rgba(90,40,10,.22)}
+.ev-slide .ev-body{text-shadow:0 1px 0 rgba(255,255,255,.6)}
+.ev-dots{position:relative;z-index:4;margin-top:clamp(4px,1.4vw,14px)}
+
+/* ---- "more events" indicators: gold arrow buttons on the frame's sides (the next one nudges until the guest
+   changes the event), a 1 / 5 counter in the dots pill and a short hint underneath ---- */
+.ev-arr{position:absolute;z-index:6;top:50%;width:clamp(40px,5.4vw,54px);aspect-ratio:1;margin-top:calc(clamp(40px,5.4vw,54px)/-2);padding:0;border:0;border-radius:50%;cursor:pointer;
+ display:grid;place-items:center;color:#6b1f2a;background:radial-gradient(circle at 35% 30%,#fff6d6,#f2c96e 55%,#b8862c);
+ box-shadow:0 6px 14px rgba(60,20,5,.4),inset 0 0 0 2px rgba(122,21,48,.55),inset 0 0 0 4px rgba(255,241,196,.7);transition:transform .25s,box-shadow .25s}
+.ev-arr svg{width:46%;height:46%}
+.ev-arr.prev{left:calc(var(--fw)*-.09)}
+.ev-arr.prev svg{transform:scaleX(-1)}
+.ev-arr.next{right:calc(var(--fw)*-.09)}
+.ev-arr:hover{transform:scale(1.08);box-shadow:0 9px 18px rgba(60,20,5,.45),inset 0 0 0 2px rgba(122,21,48,.7),inset 0 0 0 4px rgba(255,241,196,.8)}
+.ev-arr:focus-visible{outline:2px solid #fff1c4;outline-offset:3px}
+.events:not(.ev-seen) .ev-arr.next{animation:evnudge 1.6s ease-in-out infinite}
+@keyframes evnudge{0%,100%{translate:0 0}50%{translate:7px 0}}
+.ev-count{align-self:center;margin-left:4px;padding-left:10px;border-left:1px solid rgba(169,118,31,.5);font:700 12px/1 "Cinzel",Georgia,serif;letter-spacing:.12em;color:#6b1f2a}
+.events.ev-seen @media (prefers-reduced-motion:reduce){.events .ev-arr.next{animation:none}}

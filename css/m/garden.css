@@ -1,0 +1,115 @@
+/* phone copy of css/garden.css, made by scripts/build.js - do not edit */
+/* Page 8: cream page with the embossed tree panel down both sides (mirrored on the right) and, in the open middle,
+   the Venue, the closing (Thank You, Save the Date, Replay Invitation) and a final love note.
+   Page 9: the mountains with Amer Fort, in the same colour, so the two read as one footer */
+.pg8{position:relative;z-index:3;overflow:hidden;--rodh:clamp(16px,2.4vw,34px);--colw:44vw;padding-top:var(--rodh);
+ min-height:calc(var(--colw)*2150/775 + var(--rodh));background:#eadaaf}
+/* divider between the Wishing Wall and this page (the same gold rod as above the Wishing Wall) */
+.p8-rod{position:absolute;z-index:3;left:0;right:0;top:0;height:var(--rodh);background:url(../../assets/img/rsvp-rod.webp) center/100% 100% no-repeat;filter:drop-shadow(0 6px 8px rgba(60,30,0,.4))}
+/* the tree panels fade towards the middle and at the bottom, so no edge or line shows against the page */
+.p8-col{position:absolute;z-index:0;top:var(--rodh);width:var(--colw);will-change:translate;
+ -webkit-mask-image:linear-gradient(90deg,#000 78%,transparent),linear-gradient(180deg,#000 82%,transparent);mask-image:linear-gradient(90deg,#000 78%,transparent),linear-gradient(180deg,#000 82%,transparent);-webkit-mask-composite:source-in;mask-composite:intersect}
+.p8-col.l{left:0}
+.p8-col.r{right:0;transform:scaleX(-1)}
+.p8-col img{display:block;width:100%;height:auto}
+.p8-content{position:relative;z-index:2;box-sizing:border-box;width:min(600px,58vw);margin:0 auto;padding:clamp(60px,9vw,140px) 0 clamp(30px,5vw,70px);text-align:center;color:#5a3a30}
+.p8-content p,.p8-content h2,.p8-content h3{margin:0}
+/* a soft glow of the page colour behind each block keeps the text clear of the tree tips (it is not a card) */
+.p8-blk{position:relative;padding:clamp(16px,2.6vw,30px) 0}
+.p8-blk::before{content:"";position:absolute;z-index:-1;inset:-6% -14%;background:radial-gradient(closest-side,rgba(234,218,175,.95),rgba(234,218,175,.8) 62%,rgba(234,218,175,0))}
+.p8-orn{display:block;width:clamp(44px,6vw,64px);height:auto;margin:clamp(6px,1.4vw,16px) auto}
+.p8-hi{font:400 clamp(15px,1.9vw,22px)/1.2 "Amita","Tiro Devanagari Hindi",serif;letter-spacing:.06em;color:#b8771a}
+.p8-h{margin-top:.75em!important;font:700 clamp(14px,1.8vw,20px)/1.2 "Cinzel",Georgia,serif;letter-spacing:.3em;text-transform:uppercase;color:#7a1530}
+.p8-big{margin-top:.25em!important;font:400 clamp(32px,5vw,56px)/1.1 "Yatra One",Georgia,serif;
+ background:linear-gradient(180deg,#a8243f,#7a1530 55%,#5a0f20);-webkit-background-clip:text;background-clip:text;color:transparent}
+.p8-txt{margin-top:.45em!important;font:600 clamp(16px,1.9vw,21px)/1.55 "Cormorant Garamond",Georgia,serif;color:#5a3a30}
+.p8-when{font-style:italic;color:#7a4a3a}
+.p8-small{margin-top:.15em!important;font-size:clamp(14px,1.6vw,18px);letter-spacing:.14em;text-transform:uppercase;color:#a9761f}
+.p8-script{font:400 clamp(46px,7vw,82px)/1 "Great Vibes",cursive;color:#7a1530}
+.p8-sd{margin-top:1.3em!important}
+.p8-date{margin-top:.15em!important;font:400 clamp(30px,4.6vw,52px)/1.1 "Yatra One",Georgia,serif;letter-spacing:.06em;color:#7a1530}
+.p8-note{max-width:30em;margin-left:auto!important;margin-right:auto!important;font-style:italic}
+.p8-note .guest-name{font-style:normal;font-family:"Yatra One",Georgia,serif;font-weight:400;color:#7a1530}
+.p8-sign{margin-top:.9em!important;font:600 clamp(15px,1.7vw,19px)/1.3 "Cormorant Garamond",Georgia,serif;color:#7a4a3a}
+.p8-sign span{display:block;margin-top:.1em;font:400 clamp(36px,5.4vw,60px)/1.1 "Great Vibes",cursive;color:#7a1530}
+.p8-btns{display:flex;flex-wrap:wrap;justify-content:center;gap:12px;margin-top:1.1em}
+.p8-btn{display:inline-flex;align-items:center;padding:.8em 1.6em;border:0;border-radius:99px;cursor:pointer;text-decoration:none;
+ font:700 clamp(12px,1.4vw,14px)/1 "Cinzel",Georgia,serif;letter-spacing:.14em;text-transform:uppercase;color:#fff1c4;
+ background:linear-gradient(180deg,#a8243f,#7a1530 60%,#5a0f20);box-shadow:0 6px 14px rgba(90,15,32,.3),inset 0 0 0 1.5px rgba(242,201,110,.6);transition:transform .2s,box-shadow .2s}
+.p8-btn.alt{color:#7a1530;background:linear-gradient(180deg,#fffaf0,#f3e3bd);box-shadow:0 6px 14px rgba(90,15,32,.18),inset 0 0 0 1.5px #c9952e}
+.p8-btn:hover,.p8-btn:focus-visible{transform:translateY(-2px);outline:none;box-shadow:0 10px 18px rgba(90,15,32,.35),inset 0 0 0 1.5px #f2c96e}
+@media (max-width:600px){.pg8{--colw:47vw}.p8-content{width:80vw}}
+
+.pg9{position:relative;z-index:3;overflow:hidden;background:#eadaaf}
+/* mountain page. On each side the red and green peaks sit right under the gold peak (left 12.6%, right 85.9% of the
+   width); the gold range has a little room above it so its right peak is never cut; every picture reaches below the
+   page so the parallax never opens a gap, and all of them fade out softly at the foot */
+.p9-mtn{position:relative;width:100%;aspect-ratio:1230/545}
+.p9-mtn img{position:absolute;display:block;height:auto;pointer-events:none}
+.m-gold{left:0;width:100%;bottom:-6.3%;-webkit-mask-image:linear-gradient(180deg,#000 70%,transparent 97%);mask-image:linear-gradient(180deg,#000 70%,transparent 97%)}
+.m-fort{left:22.5%;width:55%;bottom:-3%;
+ -webkit-mask-image:linear-gradient(90deg,transparent,#000 7%,#000 93%,transparent),linear-gradient(180deg,#000 52%,rgba(0,0,0,.55) 75%,transparent 96%);mask-image:linear-gradient(90deg,transparent,#000 7%,#000 93%,transparent),linear-gradient(180deg,#000 52%,rgba(0,0,0,.55) 75%,transparent 96%);-webkit-mask-composite:source-in;mask-composite:intersect}
+.m-r1{left:-21.06%;width:66%;bottom:-8%;filter:drop-shadow(0 -4px 12px rgba(90,40,10,.2));-webkit-mask-image:linear-gradient(180deg,#000 70%,transparent 97%);mask-image:linear-gradient(180deg,#000 70%,transparent 97%)}
+.m-g1{left:-4.71%;width:34%;bottom:-8%;filter:drop-shadow(0 -6px 14px rgba(60,20,0,.28));
+ -webkit-mask-image:linear-gradient(90deg,#000 88%,transparent),linear-gradient(180deg,#000 70%,transparent 97%);mask-image:linear-gradient(90deg,#000 88%,transparent),linear-gradient(180deg,#000 70%,transparent 97%);-webkit-mask-composite:source-in;mask-composite:intersect}
+.m-r2{left:52.09%;width:58%;bottom:-8%;filter:drop-shadow(0 -4px 12px rgba(90,40,10,.2));
+ -webkit-mask-image:linear-gradient(90deg,transparent,#000 16%),linear-gradient(180deg,#000 70%,transparent 97%);mask-image:linear-gradient(90deg,transparent,#000 16%),linear-gradient(180deg,#000 70%,transparent 97%);-webkit-mask-composite:source-in;mask-composite:intersect}
+.m-g2{left:64.2%;width:38%;bottom:-8%;filter:drop-shadow(0 -6px 14px rgba(60,20,0,.28));
+ -webkit-mask-image:linear-gradient(90deg,transparent,#000 9%),linear-gradient(180deg,#000 70%,transparent 97%);mask-image:linear-gradient(90deg,transparent,#000 9%),linear-gradient(180deg,#000 70%,transparent 97%);-webkit-mask-composite:source-in;mask-composite:intersect}
+/* the fort's name, just above it */
+.p9-name{position:absolute;z-index:2;left:50%;bottom:58%;transform:translateX(-50%)}
+/* lines appear one after another as they scroll in */
+.p8-blk .rv{transition-duration:.9s}
+.p8-blk .rv:nth-child(2){transition-delay:.12s}.p8-blk .rv:nth-child(3){transition-delay:.24s}.p8-blk .rv:nth-child(4){transition-delay:.36s}
+.p8-blk .rv:nth-child(5){transition-delay:.48s}.p8-blk .rv:nth-child(6){transition-delay:.6s}.p8-blk .rv:nth-child(7){transition-delay:.72s}
+
+/* ===== Amer Fort entrance: once the section is 30% into view, the layers rise out of the ground one after another
+   (js/mountains.js): back range -> title + underline -> middle (red) -> the fort -> front mountains.
+   Tweak the timing here: */
+.pg9{--mt-rise:1.2s;   /* each mountain layer rising */
+ --mt-title:.8s;        /* title fade + lift */
+ --mt-line:.6s;         /* underline growing from the centre */
+ --mt-fort:1s;          /* the fort rising */
+ --mt-ease:cubic-bezier(.215,.61,.355,1);   /* "power3.out" */
+ --t1:var(--mt-rise);                                           /* title starts      */
+ --t2:calc(var(--t1) + var(--mt-title)*.5 + var(--mt-line));   /* middle starts     */
+ --t3:calc(var(--t2) + var(--mt-rise));                         /* fort starts       */
+ --t4:calc(var(--t3) + var(--mt-fort))}                         /* front starts      */
+/* the layering stays: back < fort < middle < front, title on top */
+.m-gold{z-index:0}.m-fort{z-index:1}.m-r1,.m-r2{z-index:2}.m-g1,.m-g2{z-index:3}.p9-name{z-index:4}
+.p9-name .pn-en::after{transform-origin:50% 50%}
+/* waiting: everything below the ground (pg9 clips it), the title invisible */
+.pg9.mt-wait .p9-mtn img{transform:translateY(100%);will-change:transform}
+.pg9.mt-wait .m-fort{opacity:0}
+.pg9.mt-wait .p9-name .pn-en{opacity:0;transform:translateY(20px)}
+.pg9.mt-wait .p9-name .pn-en::after{transform:scaleX(0)}
+/* playing: each layer's transition starts when the previous one has finished */
+.pg9.mt-play .m-gold{transition:transform var(--mt-rise) var(--mt-ease)}
+.pg9.mt-play .p9-name .pn-en{transition:opacity var(--mt-title) ease var(--t1),transform var(--mt-title) var(--mt-ease) var(--t1)}
+.pg9.mt-play .p9-name .pn-en::after{transition:transform var(--mt-line) var(--mt-ease) calc(var(--t1) + var(--mt-title)*.5)}
+.pg9.mt-play .m-r1,.pg9.mt-play .m-r2{transition:transform var(--mt-rise) var(--mt-ease) var(--t2)}
+.pg9.mt-play .m-fort{transition:transform var(--mt-fort) var(--mt-ease) var(--t3),opacity var(--mt-fort) ease var(--t3)}
+.pg9.mt-play .m-g1,.pg9.mt-play .m-g2{transition:transform var(--mt-rise) var(--mt-ease) var(--t4)}
+/* contacts: three people side by side (stacked on phones), each with a call button - no cards */
+.p8-people{display:flex;flex-wrap:wrap;justify-content:center;gap:clamp(18px,3vw,36px);margin-top:1em}
+.p8-person{flex:1 1 150px;max-width:220px;display:flex;flex-direction:column;align-items:center;gap:.15em}
+.p8-person b{font:400 clamp(20px,2.4vw,26px)/1.15 "Yatra One",Georgia,serif;color:#7a1530}
+.p8-person small{font:700 clamp(10.5px,1.2vw,12.5px)/1.3 "Cinzel",Georgia,serif;letter-spacing:.14em;text-transform:uppercase;color:#a9761f}
+.p8-person .num{font:600 clamp(15px,1.7vw,18px)/1.3 "Cormorant Garamond",Georgia,serif;color:#5a3a30;letter-spacing:.04em}
+.p8-call{margin-top:.45em;display:inline-flex;align-items:center;gap:.5em;padding:.6em 1.3em;border-radius:99px;text-decoration:none;
+ font:700 clamp(11.5px,1.3vw,13px)/1 "Cinzel",Georgia,serif;letter-spacing:.14em;text-transform:uppercase;color:#fff1c4;
+ background:linear-gradient(180deg,#a8243f,#7a1530 60%,#5a0f20);box-shadow:0 6px 14px rgba(90,15,32,.3),inset 0 0 0 1.5px rgba(242,201,110,.6);transition:transform .2s,box-shadow .2s}
+.p8-call svg{width:1.15em;height:1.15em}
+.p8-call:hover,.p8-call:focus-visible{transform:translateY(-2px);outline:none;box-shadow:0 10px 18px rgba(90,15,32,.35),inset 0 0 0 1.5px #f2c96e}
+@media (max-width:600px){.p8-person{flex-basis:100%}}
+
+/* ---- contacts on tablets and computers: the three people in one even row (wider than the text column, over the trees'
+   edges if need be), each name on one line and every line level with its neighbours; larger names and numbers ---- */
+@media (min-width:900px){
+ .p8-people{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:clamp(16px,3vw,48px);position:relative;left:50%;width:min(1120px,92vw);translate:-50% 0;margin-top:1.2em}
+ .p8-person{max-width:none;gap:.3em}
+ .p8-person b{white-space:nowrap;font-size:clamp(26px,2.9vw,40px)}
+ .p8-person small{font-size:clamp(12.5px,1.25vw,16px)}
+ .p8-person .num{font-size:clamp(19px,1.9vw,26px);font-weight:700;letter-spacing:.06em}
+ .p8-call{margin-top:.6em;font-size:clamp(14px,1.3vw,18px)}
+}

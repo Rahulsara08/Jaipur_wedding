@@ -12,10 +12,11 @@
   function hearts(){
     if(reduce)return;
     var w=sec.clientWidth,h=sec.clientHeight,sr=sec.getBoundingClientRect(),br=btn.getBoundingClientRect();
-    for(var i=0;i<54;i++){var u=Math.random(),x=w*(.5+(u-.5)*Math.abs(u-.5)*2.2+(Math.random()-.5)*.5);
+    var k=window.PERF&&PERF.phone()?PERF.cfg.hearts:1;   // phones: about a third of the hearts
+    for(var i=0;i<Math.round(54*k);i++){var u=Math.random(),x=w*(.5+(u-.5)*Math.abs(u-.5)*2.2+(Math.random()-.5)*.5);
       heart(Math.max(10,Math.min(w-10,x)),h+20,14+Math.random()*22,h*(.45+Math.random()*.55),3.6+Math.random()*2.6,Math.random()*2.6)}
     var cx=br.left+br.width/2-sr.left,cy=br.top+br.height/2-sr.top;
-    for(i=0;i<14;i++)heart(cx+(Math.random()-.5)*br.width,cy,9+Math.random()*10,120+Math.random()*160,1.8+Math.random()*1.2,Math.random()*.4);
+    for(i=0;i<Math.round(14*k);i++)heart(cx+(Math.random()-.5)*br.width,cy,9+Math.random()*10,120+Math.random()*160,1.8+Math.random()*1.2,Math.random()*.4);
   }
   function accepted(first){
     btn.classList.add('done');btn.disabled=true;btn.firstChild.textContent='Accepted with Joy ✓';

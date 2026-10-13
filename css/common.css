@@ -18,3 +18,5 @@
  background:#5c0f22 url(../assets/img/burgundy-paisley.webp) 0 0/min(760px,100vw) auto repeat}
 /* decorations shown only on phones (css/mobile.css places them) */
 .m-only{display:none}
+/* a page that is well off screen sleeps: its looping animations pause until it comes back (js/perf.js) */
+.zz,.zz *,.zz *::before,.zz *::after{animation-play-state:paused!important}

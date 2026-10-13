@@ -92,3 +92,5 @@ html.op-lock,html.op-lock body{overflow:hidden}
 /* fades in from black once the fonts are ready, so the guest's name never flashes in a fallback font */
 .op-black{position:absolute;inset:0;z-index:30;background:#1a0309;pointer-events:none;transition:opacity .7s ease}
 @media (prefers-reduced-motion:reduce){.op-hint{animation:none}}
+/* until js/opening.js has placed the envelope, its parts stay hidden (so nothing visibly jumps into place) */
+.op:not(.op-placed) .op-ep,.op:not(.op-placed) .op-card,.op:not(.op-placed) .op-welcome,.op:not(.op-placed) .op-tap{visibility:hidden}

@@ -1,0 +1,152 @@
+/* phone copy of css/mobile.css, made by scripts/build.js - do not edit */
+/* ===== Mobile layer (phones up to 767px; this file is loaded only on phones, so laptops and desktops are untouched) ===== */
+
+/* ---- page 2, the gate: show the whole gate (was 137.5% of the screen wide, cutting off its outer pillars), and let the
+   pillars grow by repeating a seamless stretch of their shaft instead of stretching the picture ---- */
+.gate{width:115vw}
+/* Shubh / Laabh sit over the gate's two side domes (32.5% / 67.5% across the gate) */
+.sl-l{left:29.875%}
+.sl-r{left:70.125%}
+.sl{font-size:clamp(1.9rem,9.5vw,3.4rem)}
+/* the middle piece: its top (pillar capitals) and bottom stay as drawn; the shaft between repeats a whole number of
+   times (background-repeat: round), so nothing is stretched out of shape */
+.gimg .gm{box-sizing:border-box;padding:calc(var(--nh)*.19943) 0 calc(var(--nh)*.10781);
+ background:url(../../assets/img/m/gate-mid-tile.webp) center top/100% auto;background-repeat:no-repeat round;
+ background-origin:content-box;background-clip:content-box}
+.gimg .gm::before,.gimg .gm::after{content:"";position:absolute;left:0;right:0;background:center/100% 100% no-repeat}
+.gimg .gm::before{top:0;height:calc(var(--nh)*.19943 + 1px);background-image:url(../../assets/img/m/gate-mid-a.webp)}
+.gimg .gm::after{bottom:0;height:calc(var(--nh)*.10781 + 1px);background-image:url(../../assets/img/m/gate-mid-b.webp)}
+/* the invitation text between the pillars (the opening is narrower now, so a touch more room) */
+.gnote{padding:0 22.5%}
+
+/* ---- page 4, Patrika Gate: keep the gate picture's true shape (it was drawn ~9% wider on phones); the torans follow
+   the gate's edges, so they move in with it ---- */
+.p4-stage{--gw:calc(var(--gh)*1423/1064)}
+
+/* ---- page 5, family: the growing lotus plants are larger on phones and start just above the peacocks ---- */
+.p5-plant{width:calc(var(--fw)*.34);bottom:calc(var(--fw)*.36)}
+
+/* ---- Meet the Bride & Groom: on a phone each quote takes the whole screen width (it is too narrow beside a photo) ---- */
+.rw-quote{width:100vw}
+.q-start{padding:8vh 0 0 7vw}
+.q-end{padding:0 7vw 10vh 0}
+.q-start .rq-in,.q-end .rq-in{width:80vw}
+.rq-lotus{height:min(62%,420px);bottom:0}
+.rw-note span{font-size:clamp(22px,6.4vw,30px)}
+
+/* ---- events: the frame almost full width; illustration above-left, details beside it, slightly smaller type ---- */
+.events{--fw:98vw}
+.ev-track{padding:calc(var(--fw)*.27) calc(var(--fw)*.11) calc(var(--fw)*.23)!important}
+.ev-slide .ev-card{grid-template-columns:minmax(0,34%) minmax(0,1fr)!important;gap:8px!important}
+.ev-slide .ev-title{font-size:clamp(1.8rem,9vw,2.4rem)}
+.ev-slide .ev-meta{font-size:.78rem;gap:.15rem}
+.ev-slide .ev-note{font-size:.84rem}
+
+/* ---- RSVP: a pair of golden peacocks perched on the arch's shoulders, facing each other, filling the space above it ---- */
+.p6-pea.m-only{display:block;position:absolute;z-index:4;bottom:calc(100% - var(--aw)*.2);width:calc(var(--aw)*.42);height:auto;pointer-events:none;
+ filter:drop-shadow(0 8px 10px rgba(20,0,6,.5))}
+.p6-pea.l{left:calc(var(--aw)*-.04);transform:scaleX(-1)}
+.p6-pea.r{right:calc(var(--aw)*-.04)}
+
+/* ---- Wishing Wall: a small lantern hanging on each side of the heading, swaying gently ---- */
+.p7-hl.m-only{display:block;position:absolute;top:0;width:clamp(24px,7vw,34px);height:auto;transform-origin:50% 0;pointer-events:none;
+ filter:drop-shadow(0 0 10px rgba(255,190,90,.55));animation:p7hl 4.2s ease-in-out infinite alternate}
+@keyframes p7hl{from{transform:rotate(-3deg)}to{transform:rotate(3deg)}}
+@media (prefers-reduced-motion:reduce){.p7-hl.m-only{animation:none}}
+.p7-hl.l{left:calc(var(--br)*.78)}
+.p7-hl.r{right:calc(var(--br)*.78);animation-delay:-2s}
+
+/* ---- Wishing Wall: the page is only as tall as its content, so the palace sits right on the divider below ---- */
+.pg7{min-height:0}
+
+/* ---- events: the arrows sit on the frame's gold sides (no room beside it on a phone) ---- */
+.ev-arr{width:38px;margin-top:-19px}
+.ev-arr.prev{left:calc(var(--fw)*.005)}
+.ev-arr.next{right:calc(var(--fw)*.005)}
+
+/* ---- smooth scrolling: the paisley behind Family and Bride & Groom stays still while the page moves over it. It is one
+   still layer behind the whole page that these two pages let show through (the old way, a pinned layer inside each
+   clipped page, made the phone repaint the page on every frame, so frames and text trailed behind the finger) ---- */
+.bg-fix{display:none}
+.pg5,.pgc{clip-path:none;background:transparent}
+body::before{content:"";position:fixed;z-index:-1;left:0;top:0;width:100%;height:100vh;height:100lvh;pointer-events:none;
+ background:#5c0f22 url(../../assets/img/burgundy-paisley.webp) 0 0/min(760px,100vw) auto repeat}
+/* ... loaded only once those pages come near (js/perf.js adds .bg-near) */
+html:not(.bg-near) body::before{background-image:none}
+.pgc{overflow-x:hidden}
+@supports (overflow:clip){.pgc{overflow:visible;overflow-x:clip}}
+.rw-plane{will-change:transform}
+
+/* ---- events: the arrows sit inside the frame, in the mat's two bottom corners; no text in the events area ---- */
+.ev-track{padding-bottom:calc(var(--fw)*.31)!important}
+.ev-arr{width:34px;margin-top:0;top:auto;bottom:calc(var(--fw)*.205)}
+.ev-arr.prev{left:calc(var(--fw)*.14)}
+.ev-arr.next{right:calc(var(--fw)*.14)}
+.ev-count{display:none}
+
+/* ---- Amer Fort: the mountains and the fort larger; the small range in front larger still, so it is fully seen ---- */
+.p9-mtn{width:136%;margin-left:-18%}
+.m-g1{left:6%;width:44%}
+.m-g2{left:54%;width:46%}
+
+/* ---- page 1: the "scroll down" cue, centred just above the top of Hawa Mahal; it rides up with the building and
+   fades out as soon as the guest starts scrolling ---- */
+.hero-cue.m-only{display:flex;position:absolute;z-index:3;left:50%;top:0;margin-top:-78px;flex-direction:column;align-items:center;gap:2px;pointer-events:none;
+ color:#fff7dc;font:700 12px/1 "Cinzel",Georgia,serif;letter-spacing:.28em;text-transform:uppercase;text-shadow:0 1px 6px rgba(10,30,70,.8);will-change:transform,opacity}
+.hero-cue span{padding:7px 12px 6px 15px;border-radius:999px;background:rgba(20,50,110,.35);border:1px solid rgba(255,236,180,.7);-webkit-backdrop-filter:blur(2px);backdrop-filter:blur(2px)}
+.hero-cue i{display:block;width:14px;height:14px;margin-top:-4px;border-right:2.5px solid #ffe7a6;border-bottom:2.5px solid #ffe7a6;transform:rotate(45deg);
+ filter:drop-shadow(0 1px 3px rgba(10,30,70,.7));animation:herocue 1.6s ease-in-out infinite}
+.hero-cue i:first-of-type{margin-top:6px}
+.hero-cue i+i{animation-delay:.2s}
+@keyframes herocue{0%,100%{opacity:.35;translate:0 -3px}50%{opacity:1;translate:0 4px}}
+.op-on .hero-cue{visibility:hidden}
+@media (prefers-reduced-motion:reduce){.hero-cue i{animation:none}}
+
+/* ---- page 4: only a strip of sky under the cloud bank (was three inches of plain blue), the scene is only as tall
+   as the gate needs plus a little sky, and the Patrika Gate is larger ---- */
+.p4-gap{height:56px}
+.p4-stage{--pw:min(212vw,calc((100svh - var(--base) - 8svh)/.7477));height:calc(var(--gh) + var(--base) + 15svh)}
+
+.rq-place.flat .en{font-size:clamp(70px,24vw,108px)}
+.rq-place.raised .en{font-size:clamp(52px,17vw,84px)}
+
+/* ---- performance (phones) ---- */
+/* pages further down: their background pictures load only shortly before the page comes into view (js/perf.js) */
+.lz,.lz *,.lz *::before,.lz *::after{background-image:none!important}
+/* page 1 after the opening (js/hero.js): Hawa Mahal and the scroll cue scroll with the page itself; the trees stay
+   pinned on a second layer in front (the same order as before: sky and names, then the building, then the trees) */
+.track.native{overflow-x:clip}
+.hero-fly{position:absolute;z-index:2;left:0;right:0;top:0;height:0;pointer-events:none}
+.hero-fly img{max-width:none;position:absolute;display:block;user-select:none;-webkit-user-drag:none;pointer-events:none}
+.hero-front{position:sticky;z-index:3;top:0;overflow:hidden;pointer-events:none}
+.hero-front img{max-width:none;position:absolute;display:block;user-select:none;-webkit-user-drag:none;pointer-events:none;will-change:transform}
+/* page 1: the header's sizes known from the start (the same values js/hero.js sets), so nothing jumps when it loads */
+.stage{--hw:max(160vw,94lvh);--har:.8211;height:100lvh}
+/* swaying plants: the sway is the "rotate" property instead of an animated custom property, so the phone's graphics
+   chip runs it instead of recalculating the page's styles every frame (same movement) */
+.p5-plant{transform:scale(var(--pl-s,.92))}
+.p5-plant.grown{animation:p5rot 4.5s ease-in-out infinite alternate}
+.p5-plant.r.grown{animation-delay:-2.2s}
+@keyframes p5rot{from{rotate:-1.2deg}to{rotate:1.2deg}}
+.rq-lotus{transform:scale(var(--ls,.92))}
+.rq-lotus.grown{animation:rqrot 4.5s ease-in-out infinite alternate}
+.rq-lotus.r.grown{animation-delay:-2.2s}
+@keyframes rqrot{from{rotate:-1.4deg}to{rotate:1.4deg}}
+/* the family-page lantern's animation changes nothing visible (it animates an unused value); stop it */
+.p5-lan{animation:none}
+/* the hanging diyas' glow: a soft light that fades in and out instead of an animated filter on the whole picture */
+.p7-br .bt{animation:none!important}
+.p7-br .bt::after{content:"";position:absolute;left:10%;right:10%;bottom:-4%;height:42%;border-radius:50%;pointer-events:none;
+ background:radial-gradient(closest-side,rgba(255,200,110,.45),rgba(255,170,60,.15) 60%,transparent);opacity:0;animation:p7lit 3.2s ease-in-out infinite alternate}
+@keyframes p7lit{to{opacity:1}}
+@media (prefers-reduced-motion:reduce){.p7-br .bt::after{animation:none}}
+/* falling petals on the Patrika Gate page: 4 of the 12 on phones (PERF.cfg.petals) */
+.p4-petal:nth-child(n+5){display:none}
+/* lite tier (slow phones, js/perf.js): fewer petals, no bobbing on the road vehicles, no pulsing ring on the RSVP button */
+.lite .p4-petal:nth-child(n+3){display:none}
+.lite .bobbing{animation:none}
+.lite .p6-btn::after{animation:none;opacity:0}
+/* while the envelope opening plays, the pages under it (all hidden behind it except page 1, which takes over at the end)
+   are not drawn and their animations wait */
+.op-on body>*:not(.op):not(#track){visibility:hidden}
+.op-on body>*:not(.op),.op-on body>*:not(.op) *,.op-on body>*:not(.op) *::before,.op-on body>*:not(.op) *::after{animation-play-state:paused!important}

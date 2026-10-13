@@ -53,7 +53,7 @@
     place(hint,0,ey+EH+Math.max(18,H*.035),W,20);
     place(tap,ex+EW/2-sd*.8,ey+fd-sd*.95,sd*1.6,sd*1.6);
     // the card is the whole screen, scaled from its top centre; on portrait screens only its top part shows until it zooms
-    card.style.width=W+'px';card.style.height=H+'px';
+    card.style.width=W+'px';card.style.height=H+'px';op.classList.add('op-placed');
     // "Welcome to Jaipur" fills the sky above the envelope
     if(welcome){var band=Math.max(60,ey-10);welcome.style.height=band+'px';welcome.style.setProperty('--ws',Math.min(band/1.7,W*.15,110).toFixed(1)+'px')}
   }
@@ -101,7 +101,12 @@
     for(k in cp)if(cp[k]&&real[k]){var cs=getComputedStyle(real[k]);C.to[k]={color:cs.color,textShadow:cs.textShadow};
       cp[k].style.color=INK[k];cp[k].style.textShadow=SH_INK}
     if(C.hawa)C.hawa.style.translate='0 '+(G.H+40)+'px';
+    // phones: the ink-to-sky colour change is a fade between the ink copy of the text and a second copy already in
+    // page 1's colours (fading is nearly free for a phone; changing the colour and glow of large text every frame is not)
+    if(phone()){var nm=clone.querySelector('.names'),sk=hero.querySelector('.names').cloneNode(true);
+      sk.style.opacity='0';sk.style.animation='none';sk.setAttribute('aria-hidden','true');nm.parentNode.insertBefore(sk,nm.nextSibling);C.ink=nm;C.sky=sk}
   }
+  function phone(){return !!(window.MOBILE&&MOBILE.on())}
 
   // resting (closed) state
   function rest(){
@@ -144,7 +149,8 @@
     var T5=4150;
     A(frame,[{opacity:1},{opacity:0}],{delay:T5,duration:500});
     A(C.paper,[{opacity:1},{opacity:0}],{delay:T5,duration:1000,easing:'ease'});
-    for(var k in C.to)A(C.parts[k],[{color:INK[k],textShadow:SH_INK},{color:C.to[k].color,textShadow:C.to[k].textShadow}],{delay:T5,duration:900,easing:'ease'});
+    if(C.sky){A(C.sky,[{opacity:0},{opacity:1}],{delay:T5,duration:900,easing:'ease'});A(C.ink,[{opacity:1},{opacity:0}],{delay:T5+900,duration:1})}   // the sky copy fades in over the ink copy, which then goes
+    else for(var k in C.to)A(C.parts[k],[{color:INK[k],textShadow:SH_INK},{color:C.to[k].color,textShadow:C.to[k].textShadow}],{delay:T5,duration:900,easing:'ease'});
     // 6. Hawa Mahal rises into its place, then the real page 1 (identical, underneath) takes over
     if(C.hawa)A(C.hawa,[{translate:'0 '+(s.H+40)+'px'},{translate:'0 0'}],{delay:T5+700,duration:1300,easing:'cubic-bezier(.2,.7,.2,1)'});
     A(op,[{opacity:1},{opacity:0}],{delay:T5+2150,duration:350}).onfinish=function(){if(!seeking)finish()};

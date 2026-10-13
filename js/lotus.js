@@ -20,6 +20,6 @@
       p.classList.toggle('grown',k>=1);
     });
   }
-  function kick(){if(!ticking){ticking=true;requestAnimationFrame(update)}}
+  function kick(){if(window.PERF&&!PERF.near('pg5'))return;if(!ticking){ticking=true;requestAnimationFrame(update)}}
   addEventListener('scroll',kick,{passive:true});addEventListener('resize',kick);addEventListener('load',kick);update();
 })();

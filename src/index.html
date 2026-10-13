@@ -14,6 +14,9 @@
   <script>/* the opening plays first; if its script never loads, the page shows after 8 s anyway */
     document.documentElement.classList.add('op-on','op-lock');
     setTimeout(function(){if(!window.__opReady)document.documentElement.classList.remove('op-on','op-lock')},8000);</script>
+  <!-- the envelope's background is the first thing on screen: fetched straight away, the phone copy on phones -->
+  <link rel="preload" as="image" href="assets/img/m/opening-hawa-mahal.webp" media="(max-width: 767px)" fetchpriority="high">
+  <link rel="preload" as="image" href="assets/img/opening-hawa-mahal.webp" media="not all and (max-width: 767px)" fetchpriority="high">
   <link rel="stylesheet" href="css/base.css">
   <link rel="stylesheet" href="css/common.css">
   <link rel="stylesheet" href="css/hero.css">
@@ -31,6 +34,7 @@
   <link rel="stylesheet" href="css/mobile.css" media="(max-width: 767px)">
   <script src="js/config.js"></script>
   <script src="js/mobile.js"></script>
+  <script src="js/perf.js"></script>
 </head>
 <body>
 <!-- @include sections/00-opening.html -->

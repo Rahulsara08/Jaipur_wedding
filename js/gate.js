@@ -4,7 +4,7 @@
   var reduce=matchMedia('(prefers-reduced-motion: reduce)').matches;
   var AR=1075/806,MINH=1.4,OV=76; // image aspect, min image height (viewports), px the gate stacks onto the road (~2cm)
   var FY=.051,sl=[].slice.call(gstage.querySelectorAll('.sl')),seen=false,shown=false; // finial line (fraction of gate height) that Shubh / Laabh sit on
-  var cur=0,qCur=1,qTarget=1,last=0,running=false;
+  var cur=0,qCur=1,qTarget=1,last=0,running=false,drawn=-1;
   function cl(x){return Math.min(1,Math.max(0,x))}
   function es(t){return t*t*(3-2*t)}
   function layout(){
@@ -28,20 +28,23 @@
     qTarget=es(cl((g-vh*.45)/(vh*.55)));              // 1 = still below the screen, 0 = docked on the road
   }
   function render(){
+    if(qCur===drawn){maybeShow();return}drawn=qCur;     // unchanged since the last frame: no style write
     gate.style.transform='translate3d(-50%,'+(qCur*innerHeight*.22).toFixed(2)+'px,0)';
     maybeShow();
   }
   function loop(now){
     var dt=Math.min(.05,(now-last)/1000||.016);last=now;
-    qCur+=(qTarget-qCur)*(1-Math.exp(-dt*10));
+    // phones: the gate follows the scroll in the same frame (an eased layer trails behind a phone's own scrolling and
+    // looks like it jumps); laptops keep the soft easing
+    if(window.MOBILE&&MOBILE.on())qCur=qTarget;else qCur+=(qTarget-qCur)*(1-Math.exp(-dt*10));
     if(Math.abs(qTarget-qCur)<.001)qCur=qTarget;
     render();
     if(qCur!==qTarget)requestAnimationFrame(loop);else running=false;
   }
-  function kick(){read();if(reduce){qCur=qTarget;render();return}if(!running){running=true;last=performance.now();requestAnimationFrame(loop)}}
+  function kick(){if(window.PERF&&!PERF.near('gtrack')&&qCur===qTarget)return;read();if(reduce){qCur=qTarget;render();return}if(qTarget===qCur&&qCur===drawn&&!running)return;if(!running){running=true;last=performance.now();requestAnimationFrame(loop)}}
   var lw2=0,lh2=0;
   addEventListener('scroll',kick,{passive:true});
-  addEventListener('resize',function(){if(innerWidth===lw2&&innerHeight===lh2)return;lw2=innerWidth;lh2=innerHeight;layout();kick()});
+  addEventListener('resize',function(){if(innerWidth===lw2&&innerHeight===lh2)return;lw2=innerWidth;lh2=innerHeight;layout();drawn=-1;kick()});
   addEventListener('load',function(){layout();kick()});
   var skyImg=document.querySelector('.wall .skyline');if(skyImg&&!skyImg.complete)skyImg.addEventListener('load',function(){layout();kick()});
   lw2=innerWidth;lh2=innerHeight;

@@ -26,7 +26,7 @@
     csh.style.opacity=es(cl((p-.9)/.1)).toFixed(3);
     csh.style.transform='translate3d(0,'+(-(y1+ch*.008)+csh.offsetHeight*.5).toFixed(1)+'px,0)';
   }
-  function kick(){if(!ticking){ticking=true;requestAnimationFrame(render)}}
+  function kick(){if(window.PERF&&!PERF.near('pg4'))return;if(!ticking){ticking=true;requestAnimationFrame(render)}}
   addEventListener('scroll',kick,{passive:true});
   addEventListener('resize',kick);
   addEventListener('load',render);

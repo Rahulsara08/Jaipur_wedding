@@ -25,7 +25,7 @@ const MIME_TYPES = {
 };
 
 // Only these folders/files are public; source partials, scripts and node_modules are not served.
-const PUBLIC = /^\/(index\.html|css\/[\w.-]+\.css|js\/[\w.-]+\.js|assets\/[\w./-]+)$/;
+const PUBLIC = /^\/(index\.html|css\/(?:m\/)?[\w.-]+\.css|js\/[\w.-]+\.js|assets\/[\w./-]+)$/;
 
 // Rebuild index.html when the file system allows it. Hosts with a read-only file system (serverless platforms)
 // simply use the committed index.html.
