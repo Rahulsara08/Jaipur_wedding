@@ -23,7 +23,7 @@ function buildMobileCss(man) {
   for (const f of fs.readdirSync(dir)) fs.unlinkSync(path.join(dir, f));
   for (const f of fs.readdirSync(path.join(ROOT, 'css'))) {
     if (!f.endsWith('.css')) continue;
-    const css = fs.readFileSync(path.join(ROOT, 'css', f), 'utf8')
+    const css = fs.readFileSync(path.join(ROOT, 'css', f), 'utf8').replace(/\r\n/g, '\n')
       .replace(/url\((["']?)\.\.\/assets\/img\/([\w.-]+)\1\)/g, (m, q, name) =>
         man[name] ? `url(${q}../../assets/img/m/${name}${q})` : `url(${q}../../assets/img/${name}${q})`)
       .replace(/url\((["']?)\.\.\/(?!\.\.\/)/g, 'url($1../../');
@@ -56,7 +56,8 @@ function build() {
   html = html.replace(/(href|src)="((?:css|js)\/(?:m\/)?[\w.-]+\.(?:css|js))"/g, (m, attr, file) => {
     const full = path.join(ROOT, file);
     if (!fs.existsSync(full)) return m;
-    const v = crypto.createHash('md5').update(fs.readFileSync(full)).digest('hex').slice(0, 8);
+    // hash the text with plain line endings, so Windows and Linux checkouts give the same links
+    const v = crypto.createHash('md5').update(fs.readFileSync(full, 'utf8').replace(/\r\n/g, '\n')).digest('hex').slice(0, 8);
     return `${attr}="${file}?v=${v}"`;
   });
   fs.writeFileSync(path.join(ROOT, 'index.html'), html);
