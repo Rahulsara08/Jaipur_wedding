@@ -149,3 +149,5 @@ html:not(.bg-near) body::before{background-image:none}
    are not drawn and their animations wait */
 .op-on body>*:not(.op):not(#track){visibility:hidden}
 .op-on body>*:not(.op),.op-on body>*:not(.op) *,.op-on body>*:not(.op) *::before,.op-on body>*:not(.op) *::after{animation-play-state:paused!important}
+/* page 4: the flowering trees' three stacked shadows become one similar soft shadow (far cheaper to draw on a phone) */
+.p4-tr>i{filter:saturate(1.08) contrast(1.05) drop-shadow(18px 22px 14px rgba(25,8,40,.5))}

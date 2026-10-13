@@ -8,14 +8,14 @@
   function setVars(){
     var st=document.getElementById('stage'),W=st.clientWidth||innerWidth,H=innerHeight,ph=window.MOBILE&&MOBILE.on();
     if(!lvh){lvh=document.createElement('div');lvh.style.cssText='position:fixed;left:0;top:0;width:0;height:100vh;height:100lvh;visibility:hidden;pointer-events:none';document.body.appendChild(lvh)}
-    if(ph)H=Math.max(H,lvh.offsetHeight);           // phones: the tallest screen (address bar hidden), never changes while scrolling
+    if(ph){if(!fixH||fixW!==W){fixH=Math.max(H,lvh.offsetHeight);fixW=W}H=fixH}   // phones: the tallest screen, worked out once per width
     st.style.setProperty('--hw',(window.MOBILE&&MOBILE.on()?MOBILE.hawaW(W,H):Math.max(W*1.02,1.3*H))+'px');
     if(hawa.naturalWidth)st.style.setProperty('--har',(hawa.naturalHeight/hawa.naturalWidth*(window.MOBILE&&MOBILE.on()?1:1.18)).toFixed(4));   // phones: true shape, no stretch
     st.style.setProperty('--th',Math.min(.74*H,1.18*W)+'px');
     // phones: the screen gets taller when the address bar hides; size the hero to the tallest screen so nothing shows under it
-    st.style.height=Math.max(H,lvh.offsetHeight)+'px';
+    st.style.height=(ph?H:Math.max(H,lvh.offsetHeight))+'px';
   }
-  var lw=0,lh=0,rq=0,lvh=null;
+  var lw=0,lh=0,rq=0,lvh=null,fixH=0,fixW=0;
   function doRefit(){rq=0;setVars();layout();readTarget();cur=target;render(cur)}
   function refit(){if(rq)return;rq=requestAnimationFrame(doRefit)}
   function onSize(){var ph=window.MOBILE&&MOBILE.on();if(innerWidth!==lw||(!ph&&innerHeight!==lh)){lw=innerWidth;lh=innerHeight;refit()}}

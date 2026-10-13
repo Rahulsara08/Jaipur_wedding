@@ -10,8 +10,8 @@ window.PERF=(function(){
   var CFG={
     sleepMargin:'100% 0px',       // a page sleeps when it is more than one screen away from the visible area
     lazyMargin:'150% 0px',        // phones: a page's pictures start loading 1.5 screens before it comes into view
-    skyFps:20,skyFpsLite:10,      // phones: frames per second of the animated cloud skies (Patrika Gate, cloud band)
-    skyScale:.4,skyScaleLite:.3,  // phones: resolution of those skies (share of the screen pixels)
+    stillSky:true,                // phones: the cloud skies (Patrika Gate, cloud band) are painted once and held still
+    skyScale:.6,skyScaleLite:.45, // phones: resolution of that still frame (share of the screen pixels)
     hearts:.35,                   // phones: share of the RSVP celebration hearts
     lowEndCores:4,lowEndMemory:4, // phones reporting at most this many CPU cores or GB memory start in the lite tier (only
                                   // phones that report their memory; iPhones always report 4 cores, so they rely on the

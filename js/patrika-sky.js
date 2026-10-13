@@ -44,7 +44,12 @@
   var reduce=matchMedia('(prefers-reduced-motion: reduce)').matches,on=false,raf=0,t0=performance.now()-40000;
   function size(){var k=Math.min(1,(window.devicePixelRatio||1))*(window.MOBILE&&MOBILE.on()?(window.PERF?(PERF.lite()?PERF.cfg.skyScaleLite:PERF.cfg.skyScale):.4):.6);var w=Math.max(2,Math.round(cv.clientWidth*k)),h=Math.max(2,Math.round(cv.clientHeight*k));
     if(cv.width!==w||cv.height!==h){cv.width=w;cv.height=h;gl.viewport(0,0,w,h)}gl.uniform2f(uR,cv.width,cv.height)}
-  var lastD=0;function draw(now){raf=0;if(window.MOBILE&&MOBILE.on()&&now-lastD<(window.PERF?1000/(PERF.lite()?PERF.cfg.skyFpsLite:PERF.cfg.skyFps):30)&&on){raf=requestAnimationFrame(draw);return}lastD=now;size();gl.uniform1f(uT,(now-t0)/1000);gl.drawArrays(gl.TRIANGLE_STRIP,0,4);if(on&&!reduce)raf=requestAnimationFrame(draw)}
+  function sized(){var w0=cv.width,h0=cv.height;size();return cv.width!==w0||cv.height!==h0}
+  // phones: the sky is painted once (a still frame of the same clouds) and then left alone, so it costs nothing while
+  // the guest scrolls; laptops keep the slowly drifting clouds
+  var still=function(){return window.PERF?PERF.phone()&&PERF.cfg.stillSky:false},shown=false;
+  // (the still frame counts as done only once it has been painted while on screen)
+  function draw(now){raf=0;if(still()&&shown&&!sized())return;if(on)shown=true;size();gl.uniform1f(uT,(now-t0)/1000);gl.drawArrays(gl.TRIANGLE_STRIP,0,4);if(on&&!reduce&&!still())raf=requestAnimationFrame(draw)}
   st.classList.add('real');
   if('IntersectionObserver' in window)new IntersectionObserver(function(es){on=es[0].isIntersecting;if(on&&!raf)raf=requestAnimationFrame(draw)}).observe(st);
   else on=true;
